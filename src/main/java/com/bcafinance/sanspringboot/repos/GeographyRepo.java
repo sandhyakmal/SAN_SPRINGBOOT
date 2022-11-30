@@ -22,9 +22,7 @@ public interface GeographyRepo extends JpaRepository<Geographys, Long> {
    Optional<Geographys> findByProvinceCode(String provinceCode);
    List<Geographys> findByCityLike(String name);
    List<Geographys> findByCityNotLike(String name);
-
    List<Geographys> searchByCityStartsWith(String name);
-
    List<Geographys> searchByCityEndsWith(String name);
 
 

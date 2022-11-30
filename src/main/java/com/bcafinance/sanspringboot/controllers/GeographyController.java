@@ -94,11 +94,11 @@ public class GeographyController {
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeographys,null,null);
     }
 
-    @GetMapping("/geographys/datas/{name}")
-    public ResponseEntity<Object> getGeographysByName(@PathVariable("name") String name)throws Exception{
+    @GetMapping("/geographys/datas/{province}")
+    public ResponseEntity<Object> getGeographysByName(@PathVariable("province") String province)throws Exception{
 
         return new ResponseHandler().
-                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findByProvinceName(name),null,null);
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findByProvinceName(province),null,null);
     }
 
     @GetMapping("/geographys/city/sl/{name}")

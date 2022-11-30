@@ -57,9 +57,9 @@ public class GeographyService {
         geographyRepo.save(geographys);
     }
 
-    public Geographys findByProvinceName(String name) throws Exception
+    public Geographys findByProvinceName(String province) throws Exception
     {
-        return geographyRepo.findByProvince(name).
+        return geographyRepo.findByProvince(province).
                 orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
     }
 
