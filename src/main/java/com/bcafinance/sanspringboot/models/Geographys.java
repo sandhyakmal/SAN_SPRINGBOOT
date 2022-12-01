@@ -8,9 +8,11 @@ Last Modified on 11/30/2022 1:54 PM
 Version 1.0
 */
 
+import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Data
@@ -26,17 +28,20 @@ public class Geographys {
     @Column(name = "RegionName",nullable = false)
     private String regionname;
 
-    @Column(name = "Province",nullable = false)
-    private String province;
+//    @Column(name = "Province",nullable = false)
+//    private String province;
 
-    @Column(name = "ProvinceCode",nullable = false)
-    private String provinceCode;
+//    @NotEmpty(message = ConstantMessage.WARNING_PROVINCE_CODE_MENDATORY)
+//    @Column(name = "ProvinceCode",nullable = false)
+//    private String provinceCode;
+
 
     @Column(name = "City",nullable = false)
     private String city;
 
-    @Column(name = "PostalCode",nullable = true)
-    private Long postalCode;
+    //@NotEmpty(message = ConstantMessage.WARNING_POSTAL_CODE_MENDATORY)
+    @Column(name = "PostalCode",nullable = false)
+    private String postalCode;
 
     @Column(name = "CreatedBy",nullable = false)
     private String createdBy = "1";

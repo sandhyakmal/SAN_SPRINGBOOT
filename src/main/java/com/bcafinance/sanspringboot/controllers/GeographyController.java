@@ -8,7 +8,6 @@ Last Modified on 11/30/2022 2:05 PM
 Version 1.0
 */
 
-
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
 import com.bcafinance.sanspringboot.models.Geographys;
@@ -21,11 +20,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.validation.Valid;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api")
 public class GeographyController {
 
     @Getter
@@ -40,7 +41,7 @@ public class GeographyController {
         this.geographyService = geographyService;
     }
 
-    @GetMapping("/geographys/{id}")
+    @GetMapping("/v1/geographys/{id}")
     public ResponseEntity<Object> getGeographyById(@PathVariable("id") long id) throws Exception {
         Geographys geographys = geographyService.findByIdGeography(id);
 
@@ -55,7 +56,24 @@ public class GeographyController {
         }
     }
 
-    @PostMapping("/geographys")
+    @PostMapping("/v2/geographys")
+    public ResponseEntity<Object>
+    saveGeography(@Valid @RequestBody Geographys geographys) throws Exception {
+        if(geographys==null)throw new ResourceNotFoundException(ConstantMessage.ERROR_NO_CONTENT);
+        geographyService.saveGeography(geographys);
+        return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE, HttpStatus.CREATED,null,null,null);
+    }
+
+    @PostMapping("v2/geographys/bat")
+    public ResponseEntity<Object>
+    saveAllGeographys(@RequestBody List<Geographys> geographys) throws Exception {
+
+        if(geographys==null)throw new ResourceNotFoundException(ConstantMessage.ERROR_NO_CONTENT);
+        geographyService.saveAllGeographys(geographys);
+        return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE, HttpStatus.CREATED,null,null,null);
+    }
+
+    @PostMapping("/v1/geographys")
     public ResponseEntity<Object>
     saveGeography(@RequestBody Geographys geographys,
                 @RequestHeader Map<String,String> headers,
@@ -75,7 +93,7 @@ public class GeographyController {
         return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE,HttpStatus.CREATED,null,null,null);
     }
 
-    @GetMapping("/geographys/datas/all")
+    @GetMapping("/v1/geographys/datas/all")
     public ResponseEntity<Object> findAllGeography()throws Exception{
 
         int data = 0;
@@ -94,42 +112,42 @@ public class GeographyController {
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeographys,null,null);
     }
 
-    @GetMapping("/geographys/datas/{province}")
-    public ResponseEntity<Object> getGeographysByName(@PathVariable("province") String province)throws Exception{
+//    @GetMapping("/v1/geographys/datas/{province}")
+//    public ResponseEntity<Object> getGeographysByName(@PathVariable("province") String province)throws Exception{
+//
+//        return new ResponseHandler().
+//                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findByProvinceName(province),null,null);
+//    }
 
-        return new ResponseHandler().
-                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findByProvinceName(province),null,null);
-    }
-
-    @GetMapping("/geographys/city/sl/{name}")
+    @GetMapping("/v1/geographys/city/sl/{name}")
     public ResponseEntity<Object> getCitysLike(@PathVariable("name") String name)throws Exception{
 
         return new ResponseHandler().
-                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findCityLikes(name),null,null);
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findCityContainings(name),null,null);
     }
 
-    @GetMapping("/geographys/city/nl/{name}")
+    @GetMapping("/v1/geographys/city/nl/{name}")
     public ResponseEntity<Object> getCitysNotLike(@PathVariable("name") String name)throws Exception{
 
         return new ResponseHandler().
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findCityNotLikes(name),null,null);
     }
 
-    @GetMapping("/geographys/city/sw/{name}")
+    @GetMapping("/v1/geographys/city/sw/{name}")
     public ResponseEntity<Object> getCitysStartWith(@PathVariable("name") String name)throws Exception{
 
         return new ResponseHandler().
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findCityStartWiths(name),null,null);
     }
 
-    @GetMapping("/geographys/city/ew/{name}")
+    @GetMapping("/v1/geographys/city/ew/{name}")
     public ResponseEntity<Object> getCitysEndWith(@PathVariable("name") String name)throws Exception{
 
         return new ResponseHandler().
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findCityEndWiths(name),null,null);
     }
 
-    @PutMapping("/geographys/update")
+    @PutMapping("/v1/geographys/update")
     public ResponseEntity<Object> updateGeographyByID(@RequestBody Geographys geographys)throws Exception{
         geographyService.updateGeographyById(geographys);
         return new ResponseHandler().

@@ -55,7 +55,10 @@ public class ConstantMessage {
 
     /*Geography*/
     public final static String WARNING_PROVINCE_CODE_EXIST = "KODE PROVINSI SUDAH TERDAFTAR";
-
+    public final static String WARNING_PROVINCE_CODE_MENDATORY = "KODE PROVINSI WAJIB DIISI";
     public final static String WARNING_POSTAL_CODE_EXIST = "KODE POS SUDAH TERDAFTAR";
+    public final static String WARNING_POSTAL_CODE_MENDATORY = "KODE POS WAJIB DIISI";
+    public final static String WARNING_GEOGRAPHY_NOT_FOUND = "ID DAN GEOGRAPHY BELUM TERDAFTAR";
+
 
 }

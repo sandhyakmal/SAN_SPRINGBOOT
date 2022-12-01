@@ -10,21 +10,18 @@ Version 1.0
 
 
 import com.bcafinance.sanspringboot.models.Geographys;
-import com.bcafinance.sanspringboot.models.Products;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface GeographyRepo extends JpaRepository<Geographys, Long> {
-   Optional<Geographys> findByProvince(String province);
-   Optional<Geographys> findByPostalCode(Long postalCode);
-   Optional<Geographys> findByProvinceCode(String provinceCode);
-   List<Geographys> findByCityLike(String name);
+   //Optional<Geographys> findByProvince(String province);
+   Optional<Geographys> findByPostalCode(String postalCode);
+   //Optional<Geographys> findByProvinceCode(String provinceCode);
+   List<Geographys> findByCityContaining(String name);
    List<Geographys> findByCityNotLike(String name);
    List<Geographys> searchByCityStartsWith(String name);
    List<Geographys> searchByCityEndsWith(String name);
-
-
 
 }
