@@ -30,6 +30,10 @@ public class GeoProvinceDTO {
     @NotEmpty(message = ConstantMessage.WARNING_PROVINCE_CODE_MENDATORY)
     private String provinceCode;
 
+    private String city;
+
+    private String postalCode;
+
     public Long getId(){
         return id;
     }
@@ -53,7 +57,18 @@ public class GeoProvinceDTO {
     public void setProvinceCode(String provinceCode){
         this.provinceCode = provinceCode;;
     }
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
+    public String getPostalCode() {
+        return postalCode;
+    }
 
-
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
 }

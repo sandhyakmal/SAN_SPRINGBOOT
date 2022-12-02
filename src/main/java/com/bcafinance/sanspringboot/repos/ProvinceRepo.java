@@ -8,13 +8,13 @@ Last Modified on 12/1/2022 2:59 PM
 Version 1.0
 */
 
-import com.bcafinance.sanspringboot.models.GeoProvince;
+import com.bcafinance.sanspringboot.models.Province;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface GeoProvinceRepo extends JpaRepository<GeoProvince, Long> {
+public interface ProvinceRepo extends JpaRepository<Province, Long> {
 
-    Optional<GeoProvince> findByProvinceCode(String provinceCode);
-    Optional<GeoProvince> findByProvince(String province);
+    Optional<Province> findByProvinceCode(String provinceCode);
+    Optional<Province> findByProvince(String province);
 }

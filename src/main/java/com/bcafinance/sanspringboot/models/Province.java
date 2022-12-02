@@ -18,7 +18,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "MstGeographyProvince")
-public class GeoProvince {
+public class Province {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +50,6 @@ public class GeoProvince {
     @Column(name = "IsActive",nullable = false)
     private boolean isActive = true;
 
-    public GeoProvince() {
+    public Province() {
     }
 }

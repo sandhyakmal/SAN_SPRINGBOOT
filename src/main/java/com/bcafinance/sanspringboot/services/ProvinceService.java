@@ -9,9 +9,8 @@ Version 1.0
 */
 
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
-import com.bcafinance.sanspringboot.models.GeoProvince;
-import com.bcafinance.sanspringboot.models.Geographys;
-import com.bcafinance.sanspringboot.repos.GeoProvinceRepo;
+import com.bcafinance.sanspringboot.models.Province;
+import com.bcafinance.sanspringboot.repos.ProvinceRepo;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,57 +25,57 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class GeoProvinceService {
+public class ProvinceService {
 
     @Getter
-    private GeoProvinceRepo geoProvinceRepo;
+    private ProvinceRepo provinceRepo;
 
     @Autowired
-    public void setGeoProvinceRepo(GeoProvinceRepo geoProvinceRepo) {
-        this.geoProvinceRepo = geoProvinceRepo;
+    public void setProvinceRepo(ProvinceRepo provinceRepo) {
+        this.provinceRepo = provinceRepo;
     }
 
-    public void saveGeographyProvince(GeoProvince geoProvince) throws Exception{
-        if(geoProvince.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
-        if(geoProvince.getProvinceCode()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+    public void saveGeographyProvince(Province province) throws Exception{
+        if(province.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+        if(province.getProvinceCode()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
 
-        Optional<GeoProvince> geoProvinceCode = geoProvinceRepo.findByProvinceCode(geoProvince.getProvinceCode());
+        Optional<Province> geoProvinceCode = provinceRepo.findByProvinceCode(province.getProvinceCode());
         if(geoProvinceCode.isPresent())
         {
             throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
         }
 
-        geoProvinceRepo.save(geoProvince);
+        provinceRepo.save(province);
     }
 
-    public List<GeoProvince> findAllGeoProvince()
+    public List<Province> findAllGeoProvince()
     {
-        return geoProvinceRepo.findAll();
+        return provinceRepo.findAll();
     }
 
-    public GeoProvince findByProvinceName(String province) throws Exception
+    public Province findByProvinceName(String province) throws Exception
     {
-        return geoProvinceRepo.findByProvince(province).orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
+        return provinceRepo.findByProvince(province).orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
     }
 
-    public GeoProvince findByIdGeoProvince(Long id) throws Exception
+    public Province findByIdGeoProvince(Long id) throws Exception
     {
-        return geoProvinceRepo.findById(id).
+        return provinceRepo.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
     }
 
     @org.springframework.transaction.annotation.Transactional
-    public void updateGeoProvinceById(GeoProvince c) throws Exception {
+    public void updateGeoProvinceById(Province c) throws Exception {
 
-        GeoProvince geoProvince = geoProvinceRepo.findById(c.getId()).orElseThrow(() ->
+        Province province = provinceRepo.findById(c.getId()).orElseThrow(() ->
                 new ResourceNotFoundException(ConstantMessage.WARNING_GEOGRAPHY_NOT_FOUND));
 
-        geoProvince.setModifiedBy("1");
-        geoProvince.setModifiedDate(new Date());
+        province.setModifiedBy("1");
+        province.setModifiedDate(new Date());
         if (c.getProvince() != null
-                && !Objects.equals(geoProvince.getProvince(), c.getProvince())
+                && !Objects.equals(province.getProvince(), c.getProvince())
                 && !c.getProvince().equals("")) {
-            geoProvince.setProvince(c.getProvince());//BERARTI ADA PERUBAHAN DI SINI
+            province.setProvince(c.getProvince());//BERARTI ADA PERUBAHAN DI SINI
         }
 
 //        if (c.getProvinceCode() != null
@@ -85,7 +84,7 @@ public class GeoProvinceService {
 //            geoProvince.setProvinceCode(c.getProvinceCode());//BERARTI ADA PERUBAHAN DI SINI
 //        }
 
-        Optional<GeoProvince> geoProvinceCode = geoProvinceRepo.findByProvinceCode(geoProvince.getProvinceCode());
+        Optional<Province> geoProvinceCode = provinceRepo.findByProvinceCode(province.getProvinceCode());
         if(geoProvinceCode.isPresent())
         {
             throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
