@@ -67,5 +67,8 @@ public class ConstantMessage {
     public final static String WARNING_POSTAL_CODE_MENDATORY = "KODE POS WAJIB DIISI";
     public final static String WARNING_GEOGRAPHY_NOT_FOUND = "ID DAN GEOGRAPHY BELUM TERDAFTAR";
 
+    public final static String WARNING_BRANCH_OFFICE_CODE_EXIST = "KODE PROVINSI SUDAH TERDAFTAR";
+    public final static String WARNING_BRANCH_OFFICE_CODE_MENDATORY = "KODE PROVINSI WAJIB DIISI";
+
 
 }
