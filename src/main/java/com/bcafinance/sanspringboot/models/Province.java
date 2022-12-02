@@ -9,13 +9,16 @@ Version 1.0
 */
 
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
+//@Data
 @Entity
 @Table(name = "MstGeographyProvince")
 public class Province {
@@ -49,6 +52,96 @@ public class Province {
 
     @Column(name = "IsActive",nullable = false)
     private boolean isActive = true;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Geographys getGeographys() {
+        return geographys;
+    }
+
+    public void setGeographys(Geographys geographys) {
+        this.geographys = geographys;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getProvinceCode() {
+        return provinceCode;
+    }
+
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public Set<BranchOff> getBranchOffs() {
+        return branchOffs;
+    }
+
+    public void setBranchOffs(Set<BranchOff> branchOffs) {
+        this.branchOffs = branchOffs;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "ProvinceBranchOff",
+            joinColumns = @JoinColumn(name="GeographyProvinceID",referencedColumnName = "GeographyProvinceID"),
+            inverseJoinColumns = @JoinColumn(name = "BranchOfficeID",referencedColumnName = "BranchOfficeID")
+    )
+    @JsonManagedReference
+    private Set<BranchOff> branchOffs = new HashSet<BranchOff>();
 
     public Province() {
     }

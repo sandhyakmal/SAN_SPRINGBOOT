@@ -10,6 +10,7 @@ Version 1.0
 
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.models.BranchOff;
+import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.models.Province;
 import com.bcafinance.sanspringboot.repos.BranchOffRepo;
 import com.bcafinance.sanspringboot.repos.ProvinceRepo;
@@ -20,6 +21,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,5 +48,10 @@ public class BranchOffService {
         }
 
         branchOffRepo.save(branchOff);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public void saveAllBranchOff(List<BranchOff> ls){
+        branchOffRepo.saveAll(ls);
     }
 }
