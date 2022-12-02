@@ -52,7 +52,6 @@ public class ProductService {
         for(int i=0;i<lsTest.size();i++)
         {
             System.out.println(lsTest.get(i).getName());
-            System.out.println(lsTest.get(i).getId());
             System.out.println(lsTest.get(i).getPrice());
             System.out.println(lsTest.get(i).getDescription());
             System.out.println();

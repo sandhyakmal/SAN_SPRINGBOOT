@@ -16,4 +16,5 @@ import java.util.Optional;
 public interface GeoProvinceRepo extends JpaRepository<GeoProvince, Long> {
 
     Optional<GeoProvince> findByProvinceCode(String provinceCode);
+    Optional<GeoProvince> findByProvince(String province);
 }

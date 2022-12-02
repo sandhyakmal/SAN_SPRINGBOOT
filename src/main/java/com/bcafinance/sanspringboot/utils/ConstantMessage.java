@@ -54,6 +54,13 @@ public class ConstantMessage {
     /*Employee*/
 
     /*Geography*/
+    public final static String WARNING_REGION_NAME_LENGTH = "NAMA NEGARA MELEBIHI BATAS MAKSIMUM";
+    public final static String WARNING_REGION_MENDATORY = "NAMA NEGARA WAJIB DIISI";
+
+    public final static String WARNING_REGION_DESC_MENDATORY = "NAMA NEGARA WAJIB DIISI";
+    public final static String WARNING_PROVINCE_NAME_LENGTH = "NAMA PROVINSI MELEBIHI BATAS MAKSIMUM";
+    public final static String WARNING_PROVINCE_MENDATORY = "NAMA PROVINSI WAJIB DIISI";
+    public final static String WARNING_PROVINCE_CODE_NAME_LENGTH = "NAMA PROVINSI MELEBIHI BATAS MAKSIMUM";
     public final static String WARNING_PROVINCE_CODE_EXIST = "KODE PROVINSI SUDAH TERDAFTAR";
     public final static String WARNING_PROVINCE_CODE_MENDATORY = "KODE PROVINSI WAJIB DIISI";
     public final static String WARNING_POSTAL_CODE_EXIST = "KODE POS SUDAH TERDAFTAR";

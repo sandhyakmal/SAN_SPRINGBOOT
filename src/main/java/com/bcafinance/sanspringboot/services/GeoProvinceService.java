@@ -19,7 +19,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -50,5 +52,43 @@ public class GeoProvinceService {
     public List<GeoProvince> findAllGeoProvince()
     {
         return geoProvinceRepo.findAll();
+    }
+
+    public GeoProvince findByProvinceName(String province) throws Exception
+    {
+        return geoProvinceRepo.findByProvince(province).orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
+    }
+
+    public GeoProvince findByIdGeoProvince(Long id) throws Exception
+    {
+        return geoProvinceRepo.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
+    }
+
+    @org.springframework.transaction.annotation.Transactional
+    public void updateGeoProvinceById(GeoProvince c) throws Exception {
+
+        GeoProvince geoProvince = geoProvinceRepo.findById(c.getId()).orElseThrow(() ->
+                new ResourceNotFoundException(ConstantMessage.WARNING_GEOGRAPHY_NOT_FOUND));
+
+        geoProvince.setModifiedBy("1");
+        geoProvince.setModifiedDate(new Date());
+        if (c.getProvince() != null
+                && !Objects.equals(geoProvince.getProvince(), c.getProvince())
+                && !c.getProvince().equals("")) {
+            geoProvince.setProvince(c.getProvince());//BERARTI ADA PERUBAHAN DI SINI
+        }
+
+//        if (c.getProvinceCode() != null
+//                && !Objects.equals(geoProvince.getProvinceCode(), c.getProvinceCode())
+//                && !c.getProvinceCode().equals("")) {
+//            geoProvince.setProvinceCode(c.getProvinceCode());//BERARTI ADA PERUBAHAN DI SINI
+//        }
+
+        Optional<GeoProvince> geoProvinceCode = geoProvinceRepo.findByProvinceCode(geoProvince.getProvinceCode());
+        if(geoProvinceCode.isPresent())
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
+        }
     }
 }
