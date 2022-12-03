@@ -34,6 +34,7 @@ public class Provinces implements Serializable {
     @JoinColumn(name = "GeographyID")
     private Geographys geographys;
 
+    @NotEmpty(message = ConstantMessage.WARNING_PROVINCE_MENDATORY)
     @Column(name = "Province",length = 50, nullable = false)
     private String province;
 

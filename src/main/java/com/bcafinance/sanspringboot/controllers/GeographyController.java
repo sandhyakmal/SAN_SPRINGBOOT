@@ -8,12 +8,17 @@ Last Modified on 11/30/2022 2:05 PM
 Version 1.0
 */
 
+import com.bcafinance.sanspringboot.dbo.BranchOffDTO;
+import com.bcafinance.sanspringboot.dbo.GeographyDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
+import com.bcafinance.sanspringboot.models.BranchOffs;
 import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.services.GeographyService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +38,10 @@ public class GeographyController {
     private GeographyService geographyService;
 
     public GeographyController(){
-
     }
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
     public GeographyController(GeographyService geographyService){
@@ -112,6 +119,21 @@ public class GeographyController {
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeographys,null,null);
     }
 
+    @GetMapping("/v1/geographys/dto/datas/all")
+    public ResponseEntity<Object> findAllGeographyDTO()throws Exception{
+
+        List<Geographys> lsGeography = geographyService.findAllGeography();
+
+        if(lsGeography.size()==0)
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
+        }
+        List<GeographyDTO> lsGeographyDTO =  modelMapper.map(lsGeography, new TypeToken<List<GeographyDTO>>() {}.getType());
+
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeographyDTO,null,null);
+    }
+
 //    @GetMapping("/v1/geographys/datas/{province}")
 //    public ResponseEntity<Object> getGeographysByName(@PathVariable("province") String province)throws Exception{
 //
@@ -119,11 +141,11 @@ public class GeographyController {
 //                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findByProvinceName(province),null,null);
 //    }
 
-    @GetMapping("/v1/geographys/city/sl/{name}")
-    public ResponseEntity<Object> getCitysLike(@PathVariable("name") String name)throws Exception{
+    @GetMapping("/v1/geographys/region/sl/{regionname}")
+    public ResponseEntity<Object> getRegionContaining(@PathVariable("regionname") String regionname)throws Exception{
 
         return new ResponseHandler().
-                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findCityContainings(name),null,null);
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findRegionNameContainings(regionname),null,null);
     }
 
     @GetMapping("/v1/geographys/city/nl/{name}")

@@ -10,12 +10,9 @@ Version 1.0
 
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GeoProvinceDTO {

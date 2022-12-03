@@ -18,7 +18,6 @@ import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +52,14 @@ public class ProvinceController {
         return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE, HttpStatus.CREATED,null,null,null);
     }
 
+    @PostMapping("v1/province/bat")
+    public ResponseEntity<Object>
+    saveAllProvince(@Valid @RequestBody List<Provinces> listProvince) throws Exception {
+
+        if(listProvince==null)throw new ResourceNotFoundException(ConstantMessage.ERROR_NO_CONTENT);
+        provinceService.saveAllProvince(listProvince);
+        return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE, HttpStatus.CREATED,null,null,null);
+    }
 
     @GetMapping("/v1/geoprovince/datas/all")
     public ResponseEntity<List<Provinces>> getfindAll() {
@@ -68,6 +75,13 @@ public class ProvinceController {
         }
     }
 
+    @GetMapping("/v1/provinces/sl/{province}")
+    public ResponseEntity<Object> getProvincesContaining(@PathVariable("province") String province)throws Exception{
+
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,provinceService.findByProvinceContaining(province),null,null);
+    }
+
     @GetMapping("/v1/geoprovince/dto/datas/all")
     public ResponseEntity<Object> findAllGeoProvinceDTO()throws Exception{
 
@@ -77,30 +91,6 @@ public class ProvinceController {
         {
             throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
         }
-        List<GeoProvinceDTO> lsGeoProvinceDTO = modelMapper.map(lsProvinces, new TypeToken<List<GeoProvinceDTO>>() {}.getType());
-
-        return new ResponseHandler().
-                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeoProvinceDTO,null,null);
-    }
-
-    @GetMapping("/v1/geoprovince/datasDTO/all")
-    public ResponseEntity<Object> findAllGeoProvinceDTO2()throws Exception{
-
-        List<Provinces> lsProvinces = provinceService.findAllGeoProvince();
-
-        if(lsProvinces.size()==0)
-        {
-            throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
-        }
-        TypeMap<Provinces, GeoProvinceDTO> propertyMapper = modelMapper.createTypeMap(Provinces.class, GeoProvinceDTO.class);
-        propertyMapper.addMappings(
-                mapper -> mapper.map(src -> src.getGeographys().getCity(), GeoProvinceDTO::setCity)
-        );
-
-        propertyMapper.addMappings(
-                mapper -> mapper.map(src -> src.getGeographys().getPostalCode(), GeoProvinceDTO::setPostalCode)
-        );
-
         List<GeoProvinceDTO> lsGeoProvinceDTO = modelMapper.map(lsProvinces, new TypeToken<List<GeoProvinceDTO>>() {}.getType());
 
         return new ResponseHandler().
@@ -156,7 +146,7 @@ public class ProvinceController {
     }
 
     @PostMapping("/v1/province/branchoff/{id}")
-    public ResponseEntity<Object> addBranchOff(@Valid @RequestBody BranchOffs branchOffs, @PathVariable("id") Long provinceId) throws Exception {
+    public ResponseEntity<Object> addBranchOff( @RequestBody BranchOffs branchOffs, @PathVariable("id") Long provinceId) throws Exception {
         provinceService.addBranchOff(branchOffs,provinceId);
         return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE, HttpStatus.CREATED,null,null,null);
     }

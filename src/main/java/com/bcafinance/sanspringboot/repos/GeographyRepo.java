@@ -19,7 +19,7 @@ public interface GeographyRepo extends JpaRepository<Geographys, Long> {
    //Optional<Geographys> findByProvince(String province);
    Optional<Geographys> findByPostalCode(String postalCode);
    //Optional<Geographys> findByProvinceCode(String provinceCode);
-   List<Geographys> findByCityContaining(String name);
+   List<Geographys> findByregionnameContaining(String regionname);
    List<Geographys> findByCityNotLike(String name);
    List<Geographys> searchByCityStartsWith(String name);
    List<Geographys> searchByCityEndsWith(String name);

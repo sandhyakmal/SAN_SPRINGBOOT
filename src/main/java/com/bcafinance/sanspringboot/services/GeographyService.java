@@ -52,11 +52,11 @@ public class GeographyService {
 //            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
 //        }
 
-        Optional<Geographys> geoPostal = geographyRepo.findByPostalCode(geographys.getPostalCode());
-        if(geoPostal.isPresent())
-        {
-            throw new ResourceNotFoundException(ConstantMessage.WARNING_POSTAL_CODE_EXIST);
-        }
+//        Optional<Geographys> geoPostal = geographyRepo.findByPostalCode(geographys.getPostalCode());
+//        if(geoPostal.isPresent())
+//        {
+//            throw new ResourceNotFoundException(ConstantMessage.WARNING_POSTAL_CODE_EXIST);
+//        }
 
         geographyRepo.save(geographys);
     }
@@ -81,9 +81,9 @@ public class GeographyService {
         geographyRepo.deleteById(id);
     }
 
-    public List<Geographys> findCityContainings(String name)
+    public List<Geographys> findRegionNameContainings(String regionname)
     {
-        return geographyRepo.findByCityContaining(name);
+        return geographyRepo.findByregionnameContaining(regionname);
     }
 
     public List<Geographys> findCityNotLikes(String name)

@@ -10,13 +10,11 @@ Version 1.0
 
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.models.BranchOffs;
-import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.models.Provinces;
 import com.bcafinance.sanspringboot.repos.ProvinceRepo;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,20 +37,17 @@ public class ProvinceService {
 
     public void saveProvince(Provinces provinces) throws Exception{
 
-        if(provinces.getProvinceCode()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
-
-        Optional<Provinces> proCode = provinceRepo.findByProvinceCode(provinces.getProvinceCode());
-        if(proCode.isPresent())
-        {
-            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
-        }
-
         provinceRepo.save(provinces);
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    public void saveAllProvince(List<Provinces> ls){
+        provinceRepo.saveAll(ls);
     }
 
     public List<Provinces> findAllGeoProvince()
     {
-        return (List<Provinces>) provinceRepo.findAll();
+        return  provinceRepo.findAll();
     }
 
     public Provinces findByProvinceName(String province) throws Exception
@@ -64,6 +59,11 @@ public class ProvinceService {
     {
         return provinceRepo.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
+    }
+
+    public List<Provinces> findByProvinceContaining(String province)
+    {
+        return provinceRepo.findByProvinceContaining(province);
     }
 
     @org.springframework.transaction.annotation.Transactional

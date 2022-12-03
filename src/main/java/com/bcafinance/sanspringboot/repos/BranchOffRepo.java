@@ -12,10 +12,15 @@ import com.bcafinance.sanspringboot.models.BranchOffs;
 import com.bcafinance.sanspringboot.models.Provinces;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BranchOffRepo extends JpaRepository<BranchOffs, Long> {
 
-    Optional<BranchOffs> findByofficeCode(String officeCode);
+    //Optional<BranchOffs> findByofficeCode(String officeCode);
+
+    Optional<BranchOffs> findByofficeName(String officeName);
+
+    List<BranchOffs> findByofficeNameContaining(String officeName);
 
 }
