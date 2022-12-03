@@ -9,12 +9,12 @@ Version 1.0
 */
 
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
-import com.bcafinance.sanspringboot.models.Province;
+import com.bcafinance.sanspringboot.models.BranchOffs;
+import com.bcafinance.sanspringboot.models.Provinces;
 import com.bcafinance.sanspringboot.repos.ProvinceRepo;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,47 +35,39 @@ public class ProvinceService {
         this.provinceRepo = provinceRepo;
     }
 
-    public void saveGeographyProvince(Province province) throws Exception{
-        if(province.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
-        if(province.getProvinceCode()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+    public void saveProvince(Provinces provinces) throws Exception{
 
-        Optional<Province> geoProvinceCode = provinceRepo.findByProvinceCode(province.getProvinceCode());
-        if(geoProvinceCode.isPresent())
-        {
-            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
-        }
-
-        provinceRepo.save(province);
+        provinceRepo.save(provinces);
     }
 
-    public List<Province> findAllGeoProvince()
+    public List<Provinces> findAllGeoProvince()
     {
-        return provinceRepo.findAll();
+        return (List<Provinces>) provinceRepo.findAll();
     }
 
-    public Province findByProvinceName(String province) throws Exception
+    public Provinces findByProvinceName(String province) throws Exception
     {
         return provinceRepo.findByProvince(province).orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
     }
 
-    public Province findByIdGeoProvince(Long id) throws Exception
+    public Provinces findByIdGeoProvince(Long id) throws Exception
     {
         return provinceRepo.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
     }
 
     @org.springframework.transaction.annotation.Transactional
-    public void updateGeoProvinceById(Province c) throws Exception {
+    public void updateGeoProvinceById(Provinces c) throws Exception {
 
-        Province province = provinceRepo.findById(c.getId()).orElseThrow(() ->
+        Provinces provinces = provinceRepo.findById(c.getId()).orElseThrow(() ->
                 new ResourceNotFoundException(ConstantMessage.WARNING_GEOGRAPHY_NOT_FOUND));
 
-        province.setModifiedBy("1");
-        province.setModifiedDate(new Date());
+        provinces.setModifiedBy("1");
+        provinces.setModifiedDate(new Date());
         if (c.getProvince() != null
-                && !Objects.equals(province.getProvince(), c.getProvince())
+                && !Objects.equals(provinces.getProvince(), c.getProvince())
                 && !c.getProvince().equals("")) {
-            province.setProvince(c.getProvince());//BERARTI ADA PERUBAHAN DI SINI
+            provinces.setProvince(c.getProvince());//BERARTI ADA PERUBAHAN DI SINI
         }
 
 //        if (c.getProvinceCode() != null
@@ -84,10 +76,16 @@ public class ProvinceService {
 //            geoProvince.setProvinceCode(c.getProvinceCode());//BERARTI ADA PERUBAHAN DI SINI
 //        }
 
-        Optional<Province> geoProvinceCode = provinceRepo.findByProvinceCode(province.getProvinceCode());
+        Optional<Provinces> geoProvinceCode = provinceRepo.findByProvinceCode(provinces.getProvinceCode());
         if(geoProvinceCode.isPresent())
         {
             throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
         }
+    }
+    public void addBranchOff(BranchOffs branchOffs,Long id) throws Exception {
+        Provinces provinces = provinceRepo.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_NOT_FOUND));
+        provinces.getBranchoffs().add(branchOffs);
+        saveProvince(provinces);
     }
 }

@@ -54,10 +54,13 @@ public class ConstantMessage {
     /*Employee*/
 
     /*Geography*/
+
     public final static String WARNING_REGION_NAME_LENGTH = "NAMA NEGARA MELEBIHI BATAS MAKSIMUM";
     public final static String WARNING_REGION_MENDATORY = "NAMA NEGARA WAJIB DIISI";
+    public final static String WARNING_CITY_MENDATORY = "NAMA NEGARA WAJIB DIISI";
 
     public final static String WARNING_REGION_DESC_MENDATORY = "NAMA NEGARA WAJIB DIISI";
+    public final static String WARNING_PROVINCE_NOT_FOUND = "PROVINSI TIDAK DITEMUKAN";
     public final static String WARNING_PROVINCE_NAME_LENGTH = "NAMA PROVINSI MELEBIHI BATAS MAKSIMUM";
     public final static String WARNING_PROVINCE_MENDATORY = "NAMA PROVINSI WAJIB DIISI";
     public final static String WARNING_PROVINCE_CODE_NAME_LENGTH = "NAMA PROVINSI MELEBIHI BATAS MAKSIMUM";
@@ -68,7 +71,8 @@ public class ConstantMessage {
     public final static String WARNING_GEOGRAPHY_NOT_FOUND = "ID DAN GEOGRAPHY BELUM TERDAFTAR";
 
     public final static String WARNING_BRANCH_OFFICE_CODE_EXIST = "KODE PROVINSI SUDAH TERDAFTAR";
-    public final static String WARNING_BRANCH_OFFICE_CODE_MENDATORY = "KODE PROVINSI WAJIB DIISI";
+    public final static String WARNING_BRANCH_OFFICE_CODE_MENDATORY = "KODE KANTOR WAJIB DIISI";
+    public final static String WARNING_BRANCE_OFFICE_NAME_MANDATORY = "NAMA KANTOR WAJIB DIISI";
 
 
 }

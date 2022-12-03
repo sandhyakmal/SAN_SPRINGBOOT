@@ -31,7 +31,7 @@ public class GeographyService {
     private GeographyRepo geographyRepo;
 
     @Autowired
-    public void setGeographyRepo(GeographyRepo geographyRepo) {
+    public GeographyService(GeographyRepo geographyRepo) {
         this.geographyRepo = geographyRepo;
     }
 
@@ -44,7 +44,7 @@ public class GeographyService {
         if(geographys.getRegionname()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
         //if(geographys.getProvinceCode()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
         //if(geographys.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
-        if(geographys.getCity()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+        //if(geographys.getCity()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
 
 //        Optional<Geographys> geoProvince = geographyRepo.findByProvinceCode(geographys.getProvinceCode());
 //        if(geoProvince.isPresent())

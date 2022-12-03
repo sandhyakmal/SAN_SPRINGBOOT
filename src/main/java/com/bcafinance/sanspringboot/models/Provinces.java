@@ -10,25 +10,28 @@ Version 1.0
 
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 //@Data
 @Entity
-@Table(name = "MstGeographyProvince")
-public class Province {
+@Table(name = "MstProvince")
+public class Provinces implements Serializable {
+
+    private static final long serialversionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "GeographyProvinceID")
+    @Column(name = "ProvinceID")
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "GeographyID")
     private Geographys geographys;
 
     @Column(name = "Province",length = 50, nullable = false)
@@ -53,6 +56,14 @@ public class Province {
     @Column(name = "IsActive",nullable = false)
     private boolean isActive = true;
 
+    @ManyToMany
+    @JsonManagedReference
+    @JoinTable(
+            name = "ProvinceBranchOff",
+            joinColumns = @JoinColumn(name="ProvinceID",referencedColumnName = "ProvinceID"),
+            inverseJoinColumns = @JoinColumn(name = "BranchOfficeID",referencedColumnName = "BranchOfficeID")
+    )
+    private Set<BranchOffs> branchOffs = new HashSet<BranchOffs>();
 
     public Long getId() {
         return id;
@@ -126,23 +137,11 @@ public class Province {
         isActive = active;
     }
 
-    public Set<BranchOff> getBranchOffs() {
+    public Set<BranchOffs> getBranchoffs() {
         return branchOffs;
     }
 
-    public void setBranchOffs(Set<BranchOff> branchOffs) {
+    public void setBranchOffs(Set<BranchOffs> branchOffs) {
         this.branchOffs = branchOffs;
-    }
-
-    @ManyToMany
-    @JoinTable(
-            name = "ProvinceBranchOff",
-            joinColumns = @JoinColumn(name="GeographyProvinceID",referencedColumnName = "GeographyProvinceID"),
-            inverseJoinColumns = @JoinColumn(name = "BranchOfficeID",referencedColumnName = "BranchOfficeID")
-    )
-    @JsonManagedReference
-    private Set<BranchOff> branchOffs = new HashSet<BranchOff>();
-
-    public Province() {
     }
 }

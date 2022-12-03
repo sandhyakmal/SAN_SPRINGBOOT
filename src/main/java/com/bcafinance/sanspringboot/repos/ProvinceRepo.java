@@ -8,13 +8,13 @@ Last Modified on 12/1/2022 2:59 PM
 Version 1.0
 */
 
-import com.bcafinance.sanspringboot.models.Province;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.bcafinance.sanspringboot.models.Provinces;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface ProvinceRepo extends JpaRepository<Province, Long> {
+public interface ProvinceRepo extends CrudRepository<Provinces, Long> {
 
-    Optional<Province> findByProvinceCode(String provinceCode);
-    Optional<Province> findByProvince(String province);
+    Optional<Provinces> findByProvinceCode(String provinceCode);
+    Optional<Provinces> findByProvince(String province);
 }

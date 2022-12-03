@@ -8,21 +8,12 @@ Last Modified on 12/2/2022 2:51 PM
 Version 1.0
 */
 
-import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
-import com.bcafinance.sanspringboot.models.BranchOff;
-import com.bcafinance.sanspringboot.models.Geographys;
-import com.bcafinance.sanspringboot.models.Province;
+import com.bcafinance.sanspringboot.models.BranchOffs;
 import com.bcafinance.sanspringboot.repos.BranchOffRepo;
-import com.bcafinance.sanspringboot.repos.ProvinceRepo;
-import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,26 +23,32 @@ public class BranchOffService {
     private BranchOffRepo branchOffRepo;
 
     @Autowired
-    public void setBranchOffRepo(BranchOffRepo branchOffRepo) {
-        this.branchOffRepo = branchOffRepo;
+    public void BranchOffService(BranchOffRepo branchOffRepo){
+        this.branchOffRepo =branchOffRepo;
     }
 
-    public void saveBranchOffice(BranchOff branchOff) throws Exception{
-        if(branchOff.getOfficeName()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
-        if(branchOff.getOfficeType()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
-        if(branchOff.getDescription()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+    public void saveBranchOffs(BranchOffs branchOffs) throws Exception{
+//        if(branchOff.getOfficeName()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+//        if(branchOff.getOfficeType()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+//        if(branchOff.getDescription()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+//
+//        Optional<BranchOff> branchOffCode = branchOffRepo.findByBranchOffCode(branchOff.getOfficeCode());
+//        if(branchOffCode.isPresent())
+//        {
+//            throw new ResourceNotFoundException(ConstantMessage.WARNING_BRANCH_OFFICE_CODE_EXIST);
+//        }
 
-        Optional<BranchOff> branchOffCode = branchOffRepo.findByofficeCode(branchOff.getOfficeCode());
-        if(branchOffCode.isPresent())
-        {
-            throw new ResourceNotFoundException(ConstantMessage.WARNING_BRANCH_OFFICE_CODE_EXIST);
-        }
-
-        branchOffRepo.save(branchOff);
+        branchOffRepo.save(branchOffs);
     }
-
-    @Transactional(rollbackFor = {Exception.class})
-    public void saveAllBranchOff(List<BranchOff> ls){
-        branchOffRepo.saveAll(ls);
-    }
+//
+//    @Transactional(rollbackFor = {Exception.class})
+//    public void saveAllBranchOff(List<BranchOff> ls){
+//        branchOffRepo.saveAll(ls);
+//    }
+//
+//    public BranchOff findByBranchOffsName(String officeName) throws Exception
+//    {
+//        return branchOffRepo.findByBranchOffName(officeName).orElseThrow(()->
+//                new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
+//    }
 }

@@ -66,10 +66,10 @@ public class GeographyController {
 
     @PostMapping("v2/geographys/bat")
     public ResponseEntity<Object>
-    saveAllGeographys(@RequestBody List<Geographys> geographys) throws Exception {
+    saveAllGeographys(@Valid @RequestBody List<Geographys> listgeographys) throws Exception {
 
-        if(geographys==null)throw new ResourceNotFoundException(ConstantMessage.ERROR_NO_CONTENT);
-        geographyService.saveAllGeographys(geographys);
+        if(listgeographys==null)throw new ResourceNotFoundException(ConstantMessage.ERROR_NO_CONTENT);
+        geographyService.saveAllGeographys(listgeographys);
         return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE, HttpStatus.CREATED,null,null,null);
     }
 

@@ -15,7 +15,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
-@Data
+//@Data
 @Entity
 @Table(name = "MstGeography")
 
@@ -25,6 +25,7 @@ public class Geographys {
     @Column(name = "GeographyID")
     private Long id;
 
+    @NotEmpty(message = ConstantMessage.WARNING_REGION_MENDATORY)
     @Column(name = "RegionName",nullable = false)
     private String regionname;
 
@@ -35,11 +36,11 @@ public class Geographys {
 //    @Column(name = "ProvinceCode",nullable = false)
 //    private String provinceCode;
 
-
+    @NotEmpty(message = ConstantMessage.WARNING_CITY_MENDATORY)
     @Column(name = "City",nullable = false)
     private String city;
 
-    //@NotEmpty(message = ConstantMessage.WARNING_POSTAL_CODE_MENDATORY)
+    @NotEmpty(message = ConstantMessage.WARNING_POSTAL_CODE_MENDATORY)
     @Column(name = "PostalCode",nullable = false)
     private String postalCode;
 
@@ -58,6 +59,75 @@ public class Geographys {
     @Column(name = "IsActive",nullable = false)
     private boolean isActive = true;
 
-    public Geographys() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRegionname() {
+        return regionname;
+    }
+
+    public void setRegionname(String regionname) {
+        this.regionname = regionname;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
