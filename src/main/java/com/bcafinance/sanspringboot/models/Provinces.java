@@ -57,7 +57,7 @@ public class Provinces implements Serializable {
     private boolean isActive = true;
 
     @ManyToMany
-    @JsonManagedReference
+//    @JsonManagedReference
     @JoinTable(
             name = "ProvinceBranchOff",
             joinColumns = @JoinColumn(name="ProvinceID",referencedColumnName = "ProvinceID"),

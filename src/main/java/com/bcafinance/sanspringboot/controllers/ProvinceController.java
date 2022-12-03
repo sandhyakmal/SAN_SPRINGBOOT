@@ -159,8 +159,8 @@ public class ProvinceController {
     }
 
     @PostMapping("/v1/province/branchoff/{id}")
-    public void addBranchOff(@RequestBody BranchOffs branchOffs, @PathVariable("id") Long id) throws Exception {
-        provinceService.addBranchOff(branchOffs,id);
+    public void addBranchOff(@RequestBody BranchOffs branchOffs, @PathVariable("provinceId") Long provinceId) throws Exception {
+        provinceService.addBranchOff(branchOffs,provinceId);
     }
 
 }

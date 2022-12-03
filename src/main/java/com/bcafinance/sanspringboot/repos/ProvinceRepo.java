@@ -9,11 +9,12 @@ Version 1.0
 */
 
 import com.bcafinance.sanspringboot.models.Provinces;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface ProvinceRepo extends CrudRepository<Provinces, Long> {
+public interface ProvinceRepo extends JpaRepository<Provinces, Long> {
 
     Optional<Provinces> findByProvinceCode(String provinceCode);
     Optional<Provinces> findByProvince(String province);

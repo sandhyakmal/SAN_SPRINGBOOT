@@ -82,8 +82,8 @@ public class ProvinceService {
             throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
         }
     }
-    public void addBranchOff(BranchOffs branchOffs,Long id) throws Exception {
-        Provinces provinces = provinceRepo.findById(id).
+    public void addBranchOff(BranchOffs branchOffs,Long provinceId) throws Exception {
+        Provinces provinces = provinceRepo.findById(provinceId).
                 orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_NOT_FOUND));
         provinces.getBranchoffs().add(branchOffs);
         saveProvince(provinces);
