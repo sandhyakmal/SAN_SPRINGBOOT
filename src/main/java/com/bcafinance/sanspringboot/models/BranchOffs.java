@@ -30,7 +30,7 @@ public class BranchOffs implements Serializable {
     @Column(name = "BranchOfficeID")
     private Long id;
 
-    @NotEmpty(message = ConstantMessage.WARNING_BRANCE_OFFICE_NAME_MANDATORY)
+    @NotEmpty(message = ConstantMessage.WARNING_BRANCH_OFFICE_NAME_MANDATORY)
     @Column(name = "OfficeName",length = 50, nullable = false)
     private String officeName;
 
@@ -60,7 +60,7 @@ public class BranchOffs implements Serializable {
     private boolean isActive = true;
 
     @ManyToMany(mappedBy = "branchOffs")//branchOffs adalah variabel yang dibuat di class Province
-    @JsonBackReference
+    //@JsonBackReference
     private Set<Provinces> provincesList = new HashSet<Provinces>();
 
     public Long getId() {

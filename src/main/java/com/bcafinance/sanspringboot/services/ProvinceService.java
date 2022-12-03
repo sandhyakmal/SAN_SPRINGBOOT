@@ -10,11 +10,13 @@ Version 1.0
 
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.models.BranchOffs;
+import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.models.Provinces;
 import com.bcafinance.sanspringboot.repos.ProvinceRepo;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,14 @@ public class ProvinceService {
     }
 
     public void saveProvince(Provinces provinces) throws Exception{
+
+        if(provinces.getProvinceCode()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+
+        Optional<Provinces> proCode = provinceRepo.findByProvinceCode(provinces.getProvinceCode());
+        if(proCode.isPresent())
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
+        }
 
         provinceRepo.save(provinces);
     }
@@ -84,7 +94,7 @@ public class ProvinceService {
     }
     public void addBranchOff(BranchOffs branchOffs,Long provinceId) throws Exception {
         Provinces provinces = provinceRepo.findById(provinceId).
-                orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_NOT_FOUND));
+                orElseThrow(() -> new ResourceNotFoundException(ConstantMessage.WARNING_BRANCH_OFFICE_NOT_FOUND));
         provinces.getBranchoffs().add(branchOffs);
         saveProvince(provinces);
     }

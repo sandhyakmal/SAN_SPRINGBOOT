@@ -12,7 +12,6 @@ import com.bcafinance.sanspringboot.dbo.GeoProvinceDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
 import com.bcafinance.sanspringboot.models.BranchOffs;
-import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.models.Provinces;
 import com.bcafinance.sanspringboot.services.ProvinceService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
@@ -24,12 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api")
@@ -159,8 +156,9 @@ public class ProvinceController {
     }
 
     @PostMapping("/v1/province/branchoff/{id}")
-    public void addBranchOff(@RequestBody BranchOffs branchOffs, @PathVariable("provinceId") Long provinceId) throws Exception {
+    public ResponseEntity<Object> addBranchOff(@Valid @RequestBody BranchOffs branchOffs, @PathVariable("id") Long provinceId) throws Exception {
         provinceService.addBranchOff(branchOffs,provinceId);
+        return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE, HttpStatus.CREATED,null,null,null);
     }
 
 }
