@@ -31,7 +31,8 @@ public class BranchOffService {
 
     private BranchOffRepo branchOffRepo;
 
-    @Autowired BranchOffService(BranchOffRepo branchOffRepo){
+    @Autowired
+    BranchOffService(BranchOffRepo branchOffRepo){
         this.branchOffRepo = branchOffRepo;
     }
 

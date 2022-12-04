@@ -86,13 +86,13 @@ public class ProvinceService {
         provinces.setModifiedBy("1");
         provinces.setModifiedDate(new Date());
 
-        if(provinces.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
-
-        Optional<Provinces> ProvinceName = provinceRepo.findByProvince(provinces.getProvince());
-        if(ProvinceName.isPresent())
-        {
-            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_NAME_EXIST);
-        }
+//        if(provinces.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+//
+//        Optional<Provinces> ProvinceName = provinceRepo.findByProvince(provinces.getProvince());
+//        if(ProvinceName.isPresent())
+//        {
+//            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_NAME_EXIST);
+//        }
 
         if (c.getProvince() != null
                 && !Objects.equals(provinces.getProvince(), c.getProvince())
