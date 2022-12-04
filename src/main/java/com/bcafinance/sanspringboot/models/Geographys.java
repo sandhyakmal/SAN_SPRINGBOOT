@@ -40,7 +40,6 @@ public class Geographys {
     @Column(name = "City",nullable = false)
     private String city;
 
-    @NotEmpty(message = ConstantMessage.WARNING_POSTAL_CODE_MENDATORY)
     @Column(name = "PostalCode",nullable = false)
     private String postalCode;
 

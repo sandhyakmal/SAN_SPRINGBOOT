@@ -46,17 +46,12 @@ public class GeographyService {
         //if(geographys.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
         //if(geographys.getCity()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
 
-//        Optional<Geographys> geoProvince = geographyRepo.findByProvinceCode(geographys.getProvinceCode());
-//        if(geoProvince.isPresent())
-//        {
-//            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
-//        }
-
-//        Optional<Geographys> geoPostal = geographyRepo.findByPostalCode(geographys.getPostalCode());
-//        if(geoPostal.isPresent())
-//        {
-//            throw new ResourceNotFoundException(ConstantMessage.WARNING_POSTAL_CODE_EXIST);
-//        }
+        Optional<Geographys> geoRegionname = geographyRepo.findByregionname(
+                geographys.getRegionname());
+        if(geoRegionname.isPresent())
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_REGION_NAME_EXIST);
+        }
 
         geographyRepo.save(geographys);
     }
@@ -109,6 +104,14 @@ public class GeographyService {
 
         geographys.setModifiedBy("1");
         geographys.setModifiedDate(new Date());
+
+        Optional<Geographys> geoRegionname = geographyRepo.findByregionname(
+                geographys.getRegionname());
+        if(geoRegionname.isPresent())
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_REGION_NAME_EXIST);
+        }
+
         if(c.getRegionname() != null
                 && !Objects.equals(geographys.getRegionname(),c.getRegionname())
                 && !c.getRegionname().equals(""))

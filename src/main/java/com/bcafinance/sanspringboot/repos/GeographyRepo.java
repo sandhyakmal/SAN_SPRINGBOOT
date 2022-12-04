@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GeographyRepo extends JpaRepository<Geographys, Long> {
-   //Optional<Geographys> findByProvince(String province);
-   Optional<Geographys> findByPostalCode(String postalCode);
+   Optional<Geographys> findByregionname(String regionname);
+   //Optional<Geographys> findByPostalCode(String postalCode);
    //Optional<Geographys> findByProvinceCode(String provinceCode);
    List<Geographys> findByregionnameContaining(String regionname);
    List<Geographys> findByCityNotLike(String name);

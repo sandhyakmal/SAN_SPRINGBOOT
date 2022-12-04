@@ -8,11 +8,11 @@ Last Modified on 11/30/2022 2:05 PM
 Version 1.0
 */
 
-import com.bcafinance.sanspringboot.dbo.BranchOffDTO;
-import com.bcafinance.sanspringboot.dbo.GeographyDTO;
+import com.bcafinance.sanspringboot.dbo.Geographys.GeographyDTO;
+import com.bcafinance.sanspringboot.dbo.Geographys.GeographyIdDTO;
+import com.bcafinance.sanspringboot.dbo.Geographys.GeographysIdContainingDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
-import com.bcafinance.sanspringboot.models.BranchOffs;
 import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.services.GeographyService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
@@ -29,6 +29,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api")
@@ -56,6 +57,23 @@ public class GeographyController {
         {
             return new ResponseHandler().
                     generateResponse(ConstantMessage.SUCCESS_FIND_BY, HttpStatus.OK,geographys,null,null);
+        }
+        else
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/v1/geographys/dto/{id}")
+    public ResponseEntity<Object> getGeographyDTOById(@PathVariable("id") long id) throws Exception {
+        Geographys geographys = geographyService.findByIdGeography(id);
+
+        if(geographys != null)
+        {
+            Optional<GeographyIdDTO> lsGeographyIdDTO =  modelMapper.map(geographys, new TypeToken<Optional<GeographyIdDTO>>() {}.getType());
+
+            return new ResponseHandler().
+                    generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeographyIdDTO,null,null);
         }
         else
         {
@@ -148,6 +166,22 @@ public class GeographyController {
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,geographyService.findRegionNameContainings(regionname),null,null);
     }
 
+    @GetMapping("/v1/geographys/region/slDTO/{regionname}")
+    public ResponseEntity<Object> getRegionDTOContaining(@PathVariable("regionname") String regionname)throws Exception{
+
+        List<Geographys> lsGeographyIdConDTO = geographyService.findRegionNameContainings(regionname);
+
+        if(lsGeographyIdConDTO.size()==0)
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
+        }
+        List<GeographysIdContainingDTO> lsGeographyIdContainingDTO =  modelMapper.map(lsGeographyIdConDTO, new TypeToken<List<GeographysIdContainingDTO>>() {}.getType());
+
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeographyIdContainingDTO,null,null);
+
+    }
+
     @GetMapping("/v1/geographys/city/nl/{name}")
     public ResponseEntity<Object> getCitysNotLike(@PathVariable("name") String name)throws Exception{
 
@@ -170,7 +204,7 @@ public class GeographyController {
     }
 
     @PutMapping("/v1/geographys/update")
-    public ResponseEntity<Object> updateGeographyByID(@RequestBody Geographys geographys)throws Exception{
+    public ResponseEntity<Object> updateGeographyByID(@Valid @RequestBody Geographys geographys)throws Exception{
         geographyService.updateGeographyById(geographys);
         return new ResponseHandler().
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,"",null,null);

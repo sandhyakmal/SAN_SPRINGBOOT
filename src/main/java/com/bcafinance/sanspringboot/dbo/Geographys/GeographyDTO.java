@@ -1,4 +1,4 @@
-package com.bcafinance.sanspringboot.dbo;
+package com.bcafinance.sanspringboot.dbo.Geographys;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer
@@ -24,11 +24,11 @@ public class GeographyDTO {
     @NotEmpty(message = ConstantMessage.WARNING_REGION_MENDATORY)
     private String regionname;
 
-//    @Length(max = 50 , message = ConstantMessage.WARNING_CITY_LENGTH)
-//    @NotEmpty(message = ConstantMessage.WARNING_CITY_MENDATORY)
-//    private String city;
-//
-//    private String postalCode;
+    @Length(max = 50 , message = ConstantMessage.WARNING_CITY_LENGTH)
+    @NotEmpty(message = ConstantMessage.WARNING_CITY_MENDATORY)
+    private String city;
+
+    private String postalCode;
 
     public Long getId() {
         return id;
@@ -46,19 +46,19 @@ public class GeographyDTO {
         this.regionname = regionname;
     }
 
-//    public String getCity() {
-//        return city;
-//    }
-//
-//    public void setCity(String city) {
-//        this.city = city;
-//    }
-//
-//    public String getPostalCode() {
-//        return postalCode;
-//    }
-//
-//    public void setPostalCode(String postalCode) {
-//        this.postalCode = postalCode;
-//    }
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
 }
