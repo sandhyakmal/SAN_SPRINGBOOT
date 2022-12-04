@@ -105,6 +105,8 @@ public class GeographyService {
         geographys.setModifiedBy("1");
         geographys.setModifiedDate(new Date());
 
+        if(geographys.getRegionname()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+
         Optional<Geographys> geoRegionname = geographyRepo.findByregionname(
                 geographys.getRegionname());
         if(geoRegionname.isPresent())

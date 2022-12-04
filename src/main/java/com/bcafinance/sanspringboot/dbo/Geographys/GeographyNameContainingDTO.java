@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GeographysIdContainingDTO {
+public class GeographyNameContainingDTO {
 
     private Long id;
 

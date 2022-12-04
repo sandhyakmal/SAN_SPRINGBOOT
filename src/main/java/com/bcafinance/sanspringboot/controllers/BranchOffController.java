@@ -8,12 +8,14 @@ Last Modified on 12/3/2022 3:56 PM
 Version 1.0
 */
 
-import com.bcafinance.sanspringboot.dbo.BranchOffDTO;
-import com.bcafinance.sanspringboot.dbo.GeoProvinceDTO;
+import com.bcafinance.sanspringboot.dbo.BranchOff.BranchOffContainingDTO;
+import com.bcafinance.sanspringboot.dbo.BranchOff.BranchOffDTO;
+import com.bcafinance.sanspringboot.dbo.BranchOff.BranchOffIdDTO;
+import com.bcafinance.sanspringboot.dbo.Provinces.GeoProvinceContainingDTO;
+import com.bcafinance.sanspringboot.dbo.Provinces.GeoProvinceIdDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
 import com.bcafinance.sanspringboot.models.BranchOffs;
-import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.models.Provinces;
 import com.bcafinance.sanspringboot.services.BranchOffService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api")
@@ -111,11 +114,43 @@ public class BranchOffController {
         }
     }
 
+    @GetMapping("/v1/branchoff/dto/{id}")
+    public ResponseEntity<Object> getBranchOffDTOById(@PathVariable("id") long id) throws Exception {
+        BranchOffs branchOffs = branchOffService.findByIdBranchOff(id);
+
+        if(branchOffs != null)
+        {
+            Optional<BranchOffIdDTO> lsBranchOffIdDTO =  modelMapper.map(branchOffs, new TypeToken<Optional<BranchOffIdDTO>>() {}.getType());
+
+            return new ResponseHandler().
+                    generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsBranchOffIdDTO,null,null);
+        }
+        else
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND);
+        }
+    }
+
     @GetMapping("/v1/branchoff/sl/{officeName}")
     public ResponseEntity<Object> getOfficeNameContaining(@PathVariable("officeName") String officeName)throws Exception{
 
         return new ResponseHandler().
-                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,branchOffService.findByofficeName(officeName),null,null);
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,branchOffService.findByofficeNameContaining(officeName),null,null);
+    }
+
+    @GetMapping("/v1/branchoff/slDTO/{officeName}")
+    public ResponseEntity<Object> getBranchOffContaining(@PathVariable("officeName") String officeName)throws Exception{
+
+        List<BranchOffs> lsBranchOffConDTO = branchOffService.findByofficeNameContaining(officeName);
+
+        if(lsBranchOffConDTO.size()==0)
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
+        }
+        List<BranchOffContainingDTO> lsBranchOffContainingDTO =  modelMapper.map(lsBranchOffConDTO, new TypeToken<List<BranchOffContainingDTO>>() {}.getType());
+
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsBranchOffContainingDTO,null,null);
     }
 
     @PutMapping("/v1/branchoff/update")

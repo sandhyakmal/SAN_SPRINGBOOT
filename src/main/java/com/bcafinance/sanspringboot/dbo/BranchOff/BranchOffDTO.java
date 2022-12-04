@@ -1,4 +1,4 @@
-package com.bcafinance.sanspringboot.dbo;
+package com.bcafinance.sanspringboot.dbo.BranchOff;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer

@@ -10,11 +10,13 @@ Version 1.0
 
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.models.BranchOffs;
+import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.models.Provinces;
 import com.bcafinance.sanspringboot.repos.ProvinceRepo;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,15 @@ public class ProvinceService {
     }
 
     public void saveProvince(Provinces provinces) throws Exception{
+
+        if(provinces.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+
+        Optional<Provinces> ProvinceName = provinceRepo.findByProvince(
+                provinces.getProvince());
+        if(ProvinceName.isPresent())
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_NAME_EXIST);
+        }
 
         provinceRepo.save(provinces);
     }
@@ -74,6 +85,15 @@ public class ProvinceService {
 
         provinces.setModifiedBy("1");
         provinces.setModifiedDate(new Date());
+
+        if(provinces.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+
+        Optional<Provinces> ProvinceName = provinceRepo.findByProvince(provinces.getProvince());
+        if(ProvinceName.isPresent())
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_NAME_EXIST);
+        }
+
         if (c.getProvince() != null
                 && !Objects.equals(provinces.getProvince(), c.getProvince())
                 && !c.getProvince().equals("")) {
@@ -86,11 +106,7 @@ public class ProvinceService {
 //            geoProvince.setProvinceCode(c.getProvinceCode());//BERARTI ADA PERUBAHAN DI SINI
 //        }
 
-        Optional<Provinces> geoProvinceCode = provinceRepo.findByProvinceCode(provinces.getProvinceCode());
-        if(geoProvinceCode.isPresent())
-        {
-            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_CODE_EXIST);
-        }
+
     }
     public void addBranchOff(BranchOffs branchOffs,Long provinceId) throws Exception {
         Provinces provinces = provinceRepo.findById(provinceId).

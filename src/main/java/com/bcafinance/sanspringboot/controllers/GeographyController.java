@@ -10,7 +10,7 @@ Version 1.0
 
 import com.bcafinance.sanspringboot.dbo.Geographys.GeographyDTO;
 import com.bcafinance.sanspringboot.dbo.Geographys.GeographyIdDTO;
-import com.bcafinance.sanspringboot.dbo.Geographys.GeographysIdContainingDTO;
+import com.bcafinance.sanspringboot.dbo.Geographys.GeographyNameContainingDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
 import com.bcafinance.sanspringboot.models.Geographys;
@@ -175,7 +175,7 @@ public class GeographyController {
         {
             throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
         }
-        List<GeographysIdContainingDTO> lsGeographyIdContainingDTO =  modelMapper.map(lsGeographyIdConDTO, new TypeToken<List<GeographysIdContainingDTO>>() {}.getType());
+        List<GeographyNameContainingDTO> lsGeographyIdContainingDTO =  modelMapper.map(lsGeographyIdConDTO, new TypeToken<List<GeographyNameContainingDTO>>() {}.getType());
 
         return new ResponseHandler().
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeographyIdContainingDTO,null,null);

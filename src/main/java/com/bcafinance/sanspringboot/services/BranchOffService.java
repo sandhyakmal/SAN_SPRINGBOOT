@@ -16,12 +16,14 @@ import com.bcafinance.sanspringboot.models.Provinces;
 import com.bcafinance.sanspringboot.repos.BranchOffRepo;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -34,6 +36,14 @@ public class BranchOffService {
     }
 
     public void saveBranchOff(BranchOffs branchOffs) throws Exception{
+
+        if(branchOffs.getOfficeName()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+
+        Optional<BranchOffs> OfficeName = branchOffRepo.findByofficeName(branchOffs.getOfficeName());
+        if(OfficeName.isPresent())
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_BRANCH_OFFICE_NAME_EXIST);
+        }
 
         branchOffRepo.save(branchOffs);
     }
@@ -76,5 +86,13 @@ public class BranchOffService {
         branchOffs.setOfficeCode(s.getOfficeCode());
         branchOffs.setOfficeType(s.getOfficeType());
         branchOffs.setDescription(s.getDescription());
+
+        if(branchOffs.getOfficeName()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+
+        Optional<BranchOffs> OfficeName = branchOffRepo.findByofficeName(branchOffs.getOfficeName());
+        if(OfficeName.isPresent())
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_BRANCH_OFFICE_NAME_EXIST);
+        }
     }
 }

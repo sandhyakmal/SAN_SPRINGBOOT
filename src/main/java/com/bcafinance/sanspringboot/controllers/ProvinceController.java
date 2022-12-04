@@ -8,10 +8,15 @@ Last Modified on 12/1/2022 3:04 PM
 Version 1.0
 */
 
-import com.bcafinance.sanspringboot.dbo.GeoProvinceDTO;
+import com.bcafinance.sanspringboot.dbo.Geographys.GeographyIdDTO;
+import com.bcafinance.sanspringboot.dbo.Geographys.GeographyNameContainingDTO;
+import com.bcafinance.sanspringboot.dbo.Provinces.GeoProvinceContainingDTO;
+import com.bcafinance.sanspringboot.dbo.Provinces.GeoProvinceDTO;
+import com.bcafinance.sanspringboot.dbo.Provinces.GeoProvinceIdDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
 import com.bcafinance.sanspringboot.models.BranchOffs;
+import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.models.Provinces;
 import com.bcafinance.sanspringboot.services.ProvinceService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api")
@@ -81,6 +87,20 @@ public class ProvinceController {
         return new ResponseHandler().
                 generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,provinceService.findByProvinceContaining(province),null,null);
     }
+    @GetMapping("/v1/provinces/slDTO/{province}")
+    public ResponseEntity<Object> getProvincesNameContaining(@PathVariable("province") String province)throws Exception{
+
+        List<Provinces> lsProvinceNameConDTO = provinceService.findByProvinceContaining(province);
+
+        if(lsProvinceNameConDTO.size()==0)
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
+        }
+        List<GeoProvinceContainingDTO> lsGeoProvinceNameContainingDTO =  modelMapper.map(lsProvinceNameConDTO, new TypeToken<List<GeoProvinceContainingDTO>>() {}.getType());
+
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeoProvinceNameContainingDTO,null,null);
+    }
 
     @GetMapping("/v1/geoprovince/dto/datas/all")
     public ResponseEntity<Object> findAllGeoProvinceDTO()throws Exception{
@@ -131,6 +151,23 @@ public class ProvinceController {
         {
             return new ResponseHandler().
                     generateResponse(ConstantMessage.SUCCESS_FIND_BY, HttpStatus.OK, provinces,null,null);
+        }
+        else
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/v1/geoprovince/dto/{id}")
+    public ResponseEntity<Object> getGeoProvinceDTOById(@PathVariable("id") long id) throws Exception {
+        Provinces provinces = provinceService.findByIdGeoProvince(id);
+
+        if(provinces != null)
+        {
+            Optional<GeoProvinceIdDTO> lsGeoProvinceIdDTO =  modelMapper.map(provinces, new TypeToken<Optional<GeoProvinceIdDTO>>() {}.getType());
+
+            return new ResponseHandler().
+                    generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsGeoProvinceIdDTO,null,null);
         }
         else
         {
