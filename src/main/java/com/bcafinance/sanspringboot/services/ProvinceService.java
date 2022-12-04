@@ -39,14 +39,14 @@ public class ProvinceService {
 
     public void saveProvince(Provinces provinces) throws Exception{
 
-        if(provinces.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
-
-        Optional<Provinces> ProvinceName = provinceRepo.findByProvince(
-                provinces.getProvince());
-        if(ProvinceName.isPresent())
-        {
-            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_NAME_EXIST);
-        }
+//        if(provinces.getProvince()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+//
+//        Optional<Provinces> ProvinceName = provinceRepo.findByProvince(
+//                provinces.getProvince());
+//        if(ProvinceName.isPresent())
+//        {
+//            throw new ResourceNotFoundException(ConstantMessage.WARNING_PROVINCE_NAME_EXIST);
+//        }
 
         provinceRepo.save(provinces);
     }

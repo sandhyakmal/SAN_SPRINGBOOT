@@ -88,12 +88,12 @@ public class BranchOffService {
         branchOffs.setOfficeType(s.getOfficeType());
         branchOffs.setDescription(s.getDescription());
 
-        if(branchOffs.getOfficeName()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
-
-        Optional<BranchOffs> OfficeName = branchOffRepo.findByofficeName(branchOffs.getOfficeName());
-        if(OfficeName.isPresent())
-        {
-            throw new ResourceNotFoundException(ConstantMessage.WARNING_BRANCH_OFFICE_NAME_EXIST);
-        }
+//        if(branchOffs.getOfficeName()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+//
+//        Optional<BranchOffs> OfficeName = branchOffRepo.findByofficeName(branchOffs.getOfficeName());
+//        if(OfficeName.isPresent())
+//        {
+//            throw new ResourceNotFoundException(ConstantMessage.WARNING_BRANCH_OFFICE_NAME_EXIST);
+//        }
     }
 }

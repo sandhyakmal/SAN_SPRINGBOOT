@@ -78,5 +78,6 @@ public class ConstantMessage {
     public final static String WARNING_EMAIL_MENDATORY = "ALAMAT EMAIL WAJIB DIISI";
     public final static String WARNING_USERNAME_MENDATORY = "USERNAME WAJIB DIISI";
 
-
+    /*Email*/
+    public static final String SUCCESS_SEND_EMAIL = "BERHASIL KIRIM EMAIL";
 }
