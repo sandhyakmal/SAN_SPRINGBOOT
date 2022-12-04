@@ -27,7 +27,7 @@ public class TakeTourController {
         return ConstantMessage.TAKE_TOUR;
     }
 
-    @GetMapping("/runnerz")
+    @PostMapping("/runnerz")
     public ResponseEntity<Object> executionClass(@RequestBody List<String> lsEmail) throws Exception {
         String[] strArr = new String[lsEmail.size()];
 

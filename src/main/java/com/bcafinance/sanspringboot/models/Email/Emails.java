@@ -81,5 +81,10 @@ public class Emails {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
+    public int size() {
+        return 1;
+    }
 }
 

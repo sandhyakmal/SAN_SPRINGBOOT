@@ -76,6 +76,7 @@ public class ConstantMessage {
     public final static String WARNING_BRANCH_OFFICE_NAME_LENGTH = "NAMA KANTOR MELEBIHI BATAS MAKSIMUM";
     public final static String WARNING_BRANCH_OFFICE_CODE_LENGTH = "NAMA KANTOR MELEBIHI BATAS MAKSIMUM";
     public final static String WARNING_EMAIL_MENDATORY = "ALAMAT EMAIL WAJIB DIISI";
+    public final static String WARNING_EMAIL_EXISTING = "ALAMAT EMAIL SUDAH TERDAFTAR";
     public final static String WARNING_USERNAME_MENDATORY = "USERNAME WAJIB DIISI";
 
     /*Email*/

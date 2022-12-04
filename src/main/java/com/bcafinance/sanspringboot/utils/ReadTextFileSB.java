@@ -1,6 +1,6 @@
 package com.bcafinance.sanspringboot.utils;
 
-import com.bcafinance.pcmspringbootfullmodule.handler.ResourceNotFoundException;
+import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 
