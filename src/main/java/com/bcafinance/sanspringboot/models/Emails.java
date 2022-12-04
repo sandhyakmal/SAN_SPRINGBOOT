@@ -1,12 +1,13 @@
-package com.bcafinance.sanspringboot.models.Email;
+package com.bcafinance.sanspringboot.models;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer
 Created with IntelliJ IDEA Version 2022.2.3 (Community Edition)
-Created on 12/4/2022 4:39 PM
-Last Modified on 12/4/2022 4:39 PM
+Created on 12/4/2022 4:24 PM
+Last Modified on 12/4/2022 4:24 PM
 Version 1.0
 */
+
 
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 
@@ -15,16 +16,28 @@ import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
-@Table(name = "MstTokens")
-public class Tokens {
+@Table(name = "MstEmails")
+public class Emails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TokenID")
+    @Column(name = "EmailsID")
     private Long id;
 
-    @Column(name = "Token",nullable = false)
-    private String token;
+    @NotEmpty(message = ConstantMessage.WARNING_EMAIL_MENDATORY)
+    @Column(name = "Email",nullable = false)
+    private String emails;
+
+    @Column(name = "Address",nullable = false)
+    private String address;
+
+    @NotEmpty(message = ConstantMessage.WARNING_USERNAME_MENDATORY)
+    @Column(name = "Username",nullable = false)
+    private String username;
+
+    @NotEmpty(message = ConstantMessage.WARNING_USERNAME_MENDATORY)
+    @Column(name = "Tokens",nullable = true)
+    private String tokens;
 
     @Column(name = "CreatedBy",nullable = false)
     private String createdBy = "1";
@@ -49,12 +62,36 @@ public class Tokens {
         this.id = id;
     }
 
-    public String getToken() {
-        return token;
+    public String getEmails() {
+        return emails;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setEmails(String emails) {
+        this.emails = emails;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(String tokens) {
+        this.tokens = tokens;
     }
 
     public String getCreatedBy() {
@@ -96,4 +133,9 @@ public class Tokens {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    public int size() {
+        return 1;
+    }
 }
+

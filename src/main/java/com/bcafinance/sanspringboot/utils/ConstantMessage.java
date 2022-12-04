@@ -81,4 +81,7 @@ public class ConstantMessage {
 
     /*Email*/
     public static final String SUCCESS_SEND_EMAIL = "BERHASIL KIRIM EMAIL";
+
+    public final static String SUCCESS_EMAIL = "EMAIL VALID";
+    public final static String WARNING_EMAIL_NOT_FOUND = "OTENTIKASI GAGAL";
 }
