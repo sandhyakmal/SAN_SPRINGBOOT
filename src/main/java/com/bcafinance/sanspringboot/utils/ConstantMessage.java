@@ -85,4 +85,24 @@ public class ConstantMessage {
 
     public final static String SUCCESS_EMAIL = "EMAIL VALID";
     public final static String WARNING_EMAIL_NOT_FOUND = "OTENTIKASI GAGAL";
+
+
+    /*Upload CSV*/
+    public static final String CONTENT_TYPE_CSV = "text/csv";
+    public static final String ERROR_NOT_CSV_FILE = "FILE YANG DIUPLOAD HARUS CSV";
+    public static final String ERROR_UPLOAD_CSV = "GAGAL UPLOAD FILE CSV";
+    public final static String WARNING_EMPLOYEE_NAME_LENGTH = "NAMA PEGAWAI MELEBIHI BATAS MAKSIMUM";
+    public final static String WARNING_EMPLOYEE_NAME_MENDATORY = "NAMA PEGAWAI WAJIB DIISI";
+    public final static String WARNING_FIRST_NAME_LENGTH = "FIRST NAME MELEBIHI BATAS MAKSIMUM";
+    public final static String WARNING_FISRT_NAME_MENDATORY = "FIRST NAME WAJIB DIISI";
+    public final static String WARNING_LAST_NAME_LENGTH = "LAST NAME MELEBIHI BATAS MAKSIMUM";
+    public final static String WARNING_LAST_NAME_MENDATORY = "LAST NAME WAJIB DIISI";
+    public final static String WARNING_ADDRESS_LENGTH = "ADDRESS MELEBIHI BATAS MAKSIMUM";
+    public final static String WARNING_ADDRESS_MENDATORY = "ADDRESS NAME WAJIB DIISI";
+
+    public final static String WARNING_GENDER_LENGTH = "GENDER MELEBIHI BATAS MAKSIMUM";
+    public final static String WARNING_GENDER_MENDATORY = "GENDER NAME WAJIB DIISI";
+    public final static String WARNING_BIRTH_DATE_MENDATORY = "BIRTH DATE WAJIB DIISI";
+
+
 }

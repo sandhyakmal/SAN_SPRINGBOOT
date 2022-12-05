@@ -37,6 +37,7 @@ public class GeographyService {
 
     @Transactional(rollbackFor = {Exception.class})
     public void saveAllGeographys(List<Geographys> ls){
+
         geographyRepo.saveAll(ls);
     }
 
