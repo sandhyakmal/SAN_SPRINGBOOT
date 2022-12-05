@@ -27,7 +27,7 @@ public class Employee implements Serializable {
     @Column(name = "EmployeeName" ,length = 50, nullable = false)
     private String employeeName;
 
-    @Column(name = "FisrtName" ,length = 20, nullable = false)
+    @Column(name = "FirstName" ,length = 20, nullable = false)
     private String firstName;
 
     @Column(name = "LastName",length = 20,nullable = false)

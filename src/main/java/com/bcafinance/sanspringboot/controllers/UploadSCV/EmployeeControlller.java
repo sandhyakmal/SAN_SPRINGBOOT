@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api")
 public class EmployeeControlller {
 
     @Getter
@@ -49,9 +49,9 @@ public class EmployeeControlller {
         this.employeeService = employeeService;
     }
 
-    @PostMapping("/v1/employee/upl/bat/11")
+    @PostMapping("/v1/employee/upl/bat")
     public ResponseEntity<Object>
-    uploadEmployee(@Valid @RequestParam("demoFile") MultipartFile multipartFile) throws Exception {
+    uploadEmployee(@Valid @RequestParam("uploadFile") MultipartFile multipartFile) throws Exception {
         try{
             if(CsvReader.isCsv(multipartFile))
             {
@@ -61,12 +61,12 @@ public class EmployeeControlller {
             {
                 throw new ResourceNotFoundException(ConstantMessage.ERROR_NOT_CSV_FILE+" -- "+multipartFile.getOriginalFilename());
             }
+            return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE,
+                    HttpStatus.CREATED,null,null,null);
         }catch (Exception e)
         {
             throw new Exception(ConstantMessage.ERROR_UPLOAD_CSV+multipartFile.getOriginalFilename());
         }
-        return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE,
-                HttpStatus.CREATED,null,null,null);
     }
 
     @GetMapping("/v1/employee/datas/all/dto")

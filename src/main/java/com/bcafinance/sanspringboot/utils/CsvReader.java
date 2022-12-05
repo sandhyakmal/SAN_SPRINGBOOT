@@ -40,13 +40,13 @@ public class CsvReader {
             for (CSVRecord record : iterRecords) {
                 Employee employee = new Employee();
                 employee.setEmployeeName(record.get("EmployeeName"));
-                employee.setFirstName(record.get("FisrtName"));
+                employee.setFirstName(record.get("FirstName"));
                 employee.setLastName(record.get("LastName"));
                 employee.setBirthDate(LocalDate.parse(record.get("BirthDate")));
                 employee.setAddress(record.get("Address"));
                 employee.setGender(record.get("Gender"));
                 lsEmployee.add(employee);
-            }
+                }
 
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
