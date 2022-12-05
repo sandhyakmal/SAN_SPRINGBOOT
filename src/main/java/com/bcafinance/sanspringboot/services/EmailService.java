@@ -9,6 +9,7 @@ Version 1.0
 */
 
 
+import com.bcafinance.sanspringboot.handler.FormatValidation;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.models.Emails;
 import com.bcafinance.sanspringboot.models.Geographys;
@@ -34,6 +35,8 @@ public class EmailService {
 
     public void saveEmail(Emails emails) throws Exception{
         if(emails.getEmails()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
+
+        FormatValidation.emailFormatValidation(emails.getEmails());
 
         Optional<Emails> getEmail = emailRepo.findByEmails(emails.getEmails());
         if(getEmail.isPresent())

@@ -10,11 +10,9 @@ Version 1.0
 
 import com.bcafinance.sanspringboot.configuration.ConfigProperties;
 import com.bcafinance.sanspringboot.core.SMTPCore;
-import com.bcafinance.sanspringboot.dbo.Geographys.GeographyIdDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
 import com.bcafinance.sanspringboot.models.Emails;
-import com.bcafinance.sanspringboot.models.Geographys;
 import com.bcafinance.sanspringboot.services.EmailService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
@@ -59,8 +57,6 @@ public class EmailController {
     emails.setTokens(tokens);
 
     emailService.saveEmail(emails);
-//        Date tanggal = new Date();
-
 
     System.out.println(System.getProperty("user.dir"));
     SMTPCore sc = new SMTPCore();

@@ -9,6 +9,7 @@ Version 1.0
 */
 
 
+import com.bcafinance.sanspringboot.handler.FormatValidation;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.models.BranchOffs;
 import com.bcafinance.sanspringboot.models.Geographys;
@@ -40,6 +41,8 @@ public class BranchOffService {
 
         if(branchOffs.getOfficeName()==null)throw new DataIntegrityViolationException(ConstantMessage.ERROR_DATA_INVALID);
 
+        FormatValidation.phoneNumberFormatValidation(branchOffs.getOfficeFax());
+
         Optional<BranchOffs> OfficeName = branchOffRepo.findByofficeName(branchOffs.getOfficeName());
         if(OfficeName.isPresent())
         {
@@ -51,6 +54,7 @@ public class BranchOffService {
 
     @Transactional(rollbackFor = {Exception.class})
     public void saveAllBranchOff(List<BranchOffs> ls){
+
         branchOffRepo.saveAll(ls);
     }
 

@@ -42,6 +42,10 @@ public class BranchOffs implements Serializable {
     @Column(name = "OfficeType",length = 50, nullable = false)
     private String officeType;
 
+    @NotEmpty(message = ConstantMessage.WARNING_BRANCH_OFFICE_FAX_MANDATORY)
+    @Column(name = "OfficeFax",length = 13 , nullable = false)
+    private String officeFax;
+
     @Column(name = "Description",length = 50, nullable = false)
     private String description;
 
@@ -94,6 +98,14 @@ public class BranchOffs implements Serializable {
 
     public void setOfficeType(String officeType) {
         this.officeType = officeType;
+    }
+
+    public String getOfficeFax() {
+        return officeFax;
+    }
+
+    public void setOfficeFax(String officeFax) {
+        this.officeFax = officeFax;
     }
 
     public String getDescription() {
