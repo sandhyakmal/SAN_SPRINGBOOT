@@ -42,8 +42,9 @@ public class TakeTourController {
         String s = "coba";
         System.out.println(sc.sendMailWithAttachment(strArr,
                 "INI HANYA TEST",new ReadTextFileSB("\\data\\template-BCAF.html").getContentFile(),
-                "SSL",
-                new String[] {ResourceUtils.getFile("classpath:\\data\\sample.docx").getAbsolutePath()}));
+                "SSL"
+               // new String[] {ResourceUtils.getFile("classpath:\\data\\sample.docx").getAbsolutePath()}
+                ));
         return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SEND_EMAIL, HttpStatus.CREATED,null,null,null);
     }
 }

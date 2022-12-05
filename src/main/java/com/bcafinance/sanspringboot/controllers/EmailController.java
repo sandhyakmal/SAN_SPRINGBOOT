@@ -64,8 +64,7 @@ public class EmailController {
     String s = "coba";
     System.out.println(sc.sendMailWithAttachment(strArr,
             "EMAIL AUTHENTICATION","TOKEN REGISTRATION : "+"http://localhost:8080/api/v1/a/"+tokens,
-            "SSL",
-            new String[] {ResourceUtils.getFile("classpath:\\data\\sample.docx").getAbsolutePath()}));
+            "SSL"));
 
 
     return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SEND_EMAIL, HttpStatus.CREATED,null,null,null);
