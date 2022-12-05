@@ -35,7 +35,6 @@ public class Emails {
     @Column(name = "Username",nullable = false)
     private String username;
 
-    @NotEmpty(message = ConstantMessage.WARNING_USERNAME_MENDATORY)
     @Column(name = "Tokens",nullable = true)
     private String tokens;
 
