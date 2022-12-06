@@ -1,6 +1,7 @@
 package com.bcafinance.sanspringboot.utils;
 
 
+import com.bcafinance.sanspringboot.models.UploadCSV.Cars;
 import com.bcafinance.sanspringboot.models.UploadCSV.Employee;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -56,6 +57,43 @@ public class CsvReader {
                 csvParser.close();
             }
             return lsEmployee;
+        }
+    }
+
+    public static List<Cars> csvToCarData(InputStream inputStream) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        CSVParser csvParser = new CSVParser(bufferedReader,
+                CSVFormat.DEFAULT.withFirstRecordAsHeader().
+                        withIgnoreHeaderCase().
+                        withTrim()
+        );
+        List<Cars> lsCars = new ArrayList<Cars>();
+        try {
+
+            Iterable<CSVRecord> iterRecords = csvParser.getRecords();
+
+            for (CSVRecord record : iterRecords) {
+                Cars cars = new Cars();
+                cars.setCarName(record.get("CarName"));
+                cars.setBrands(record.get("Brands"));
+                cars.setCarModel(Integer.valueOf(record.get("CarModel")));
+                cars.setPostalCode(Integer.valueOf(record.get("PostalCode")));
+                cars.setCreatedDates(LocalDate.parse(record.get("BirthDate")));
+                cars.setExpiredDates(LocalDate.parse(record.get("BirthDate")));
+                cars.setPrice(Double.valueOf(record.get("Price")));
+                cars.setTax(Double.valueOf(record.get("Double")));
+
+                lsCars.add(cars);
+            }
+
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+
+            if (!csvParser.isClosed()) {
+                csvParser.close();
+            }
+            return lsCars;
         }
     }
 }

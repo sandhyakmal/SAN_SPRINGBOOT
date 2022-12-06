@@ -20,6 +20,7 @@ import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,7 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api")
@@ -89,7 +92,7 @@ public class EmployeeControlller {
                                                            @PathVariable("size") int size,
                                                            @PathVariable("page") int page )throws Exception {
 
-        Pageable pageable = PageRequest.of(page,size);
+       Pageable pageable = PageRequest.of(page,size);
 
 
 
@@ -103,6 +106,18 @@ public class EmployeeControlller {
                                                     @PathVariable("page") int page,
                                                     @PathVariable("sort") String sortz)throws Exception {
 
+        /*TANPA DTO*/
+//        Pageable pageable;
+//        if(sortz.equalsIgnoreCase("desc"))
+//        {
+//            pageable = PageRequest.of(page,size, Sort.by("id").descending());
+//        }
+//        else
+//        {
+//            pageable = PageRequest.of(page,size, Sort.by("id"));//default asc
+//        }
+
+        /*DENGAN DTO*/
         Pageable pageable;
         if(sortz.equalsIgnoreCase("desc"))
         {
@@ -112,9 +127,24 @@ public class EmployeeControlller {
         {
             pageable = PageRequest.of(page,size, Sort.by("id"));//default asc
         }
+        Page<Employee> m = (Page<Employee>) employeeService.pagingFindEmployeeByName(employeeName,pageable);
+        List<Employee> ls = m.getContent();
+        List<EmployeeDTO> lsDto = modelMapper.map(ls, new TypeToken<List<EmployeeDTO>>() {}.getType());
+
+        Map<String,Object> mapz = new HashMap<String,Object>();
+        mapz.put("content",lsDto);
+        mapz.put("currentPage",m.getNumber());
+        mapz.put("totalItems",m.getTotalElements());
+        mapz.put("totalPages",m.getTotalPages());
+        mapz.put("sort",m.getSort());
+        mapz.put("numberOfElements",m.getNumberOfElements());
+
 
         return new ResponseHandler().
-                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,employeeService.pagingFindEmployeeByName(employeeName,pageable),null,null);
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,mapz,null,null);
+
+//        return new ResponseHandler().
+//                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,employeeService.pagingFindEmployeeByName(employeeName,pageable),null,null);
     }
 
 }
