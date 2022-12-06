@@ -50,10 +50,9 @@ public class CarService {
         return (List<Cars>)carRepo.findAll();
     }
 
-
     public Iterable<Cars> pagingFindCarByName(String carName, Pageable pageable)
     {
-        return carRepo.findByCarNameIsContaining(carName,pageable);
+        return carRepo.findBycarNameIsContaining(carName,pageable);
     }
 
 }

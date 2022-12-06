@@ -9,13 +9,11 @@ Version 1.0
 */
 
 
-import com.bcafinance.sanspringboot.dbo.Employee.EmployeeDTO;
+import com.bcafinance.sanspringboot.dbo.UploadCSV.CarDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
 import com.bcafinance.sanspringboot.models.UploadCSV.Cars;
-import com.bcafinance.sanspringboot.models.UploadCSV.Employee;
 import com.bcafinance.sanspringboot.services.UploadCSV.CarService;
-import com.bcafinance.sanspringboot.services.UploadCSV.EmployeeService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import com.bcafinance.sanspringboot.utils.CsvReader;
 import lombok.Getter;
@@ -54,7 +52,7 @@ public class CarControlller {
         this.carService = carService;
     }
 
-    @PostMapping("/v1/car/upl/bat")
+    @PostMapping("/v1/car/upl/batch")
     public ResponseEntity<Object>
     uploadCar(@Valid @RequestParam("uploadFile") MultipartFile multipartFile) throws Exception {
         try{
@@ -74,52 +72,41 @@ public class CarControlller {
         }
     }
 
-//    @GetMapping("/v1/employee/datas/all/dto")
-//    public ResponseEntity<Object> findAllEmployeeDTO()throws Exception {
-//
-//        List<Employee> lsEmployee = employeeService.findAllEmployee();
-//
-//        if(lsEmployee.size()!=0)
-//        {
-//            List<EmployeeDTO> lsEmployeeDTO = modelMapper.map(lsEmployee, new TypeToken<List<EmployeeDTO>>() {}.getType());
-//
-//            return new ResponseHandler().
-//                    generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsEmployeeDTO,null,null);
-//        }
-//        throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
-//    }
-//
-//    @GetMapping("/v1/employee/search/dto/{size}/{page}")
-//    public ResponseEntity<Object> pageFindEmployeeByNameDTO(@RequestParam String employeeName,
-//                                                           @PathVariable("size") int size,
-//                                                           @PathVariable("page") int page )throws Exception {
-//
-//       Pageable pageable = PageRequest.of(page,size);
-//
-//
-//
-//        return new ResponseHandler().
-//                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,employeeService.pagingFindEmployeeByName(employeeName,pageable),null,null);
-//    }
-//
-//    @GetMapping("/v1/employee/search/dto/{size}/{page}/{sort}")
-//    public ResponseEntity<Object> pageSortByNameDTO(@RequestParam String employeeName,
-//                                                    @PathVariable("size") int size,
-//                                                    @PathVariable("page") int page,
-//                                                    @PathVariable("sort") String sortz)throws Exception {
-//
-//        /*TANPA DTO*/
-////        Pageable pageable;
-////        if(sortz.equalsIgnoreCase("desc"))
-////        {
-////            pageable = PageRequest.of(page,size, Sort.by("id").descending());
-////        }
-////        else
-////        {
-////            pageable = PageRequest.of(page,size, Sort.by("id"));//default asc
-////        }
-//
-//        /*DENGAN DTO*/
+    @GetMapping("/v1/car/datas/all/dto")
+    public ResponseEntity<Object> findAllCarDTO()throws Exception {
+
+        List<Cars> lsCar = carService.findAllCars();
+
+        if(lsCar.size()!=0)
+        {
+            List<CarDTO> lsCarDTO = modelMapper.map(lsCar, new TypeToken<List<CarDTO>>() {}.getType());
+
+            return new ResponseHandler().
+                    generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsCarDTO,null,null);
+        }
+        throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
+    }
+
+    @GetMapping("/v1/car/search/dto/{size}/{page}")
+    public ResponseEntity<Object> pageFindCarByNameDTO(@RequestParam String carName,
+                                                           @PathVariable("size") int size,
+                                                           @PathVariable("page") int page )throws Exception {
+
+       Pageable pageable = PageRequest.of(page,size);
+
+
+
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,carService.pagingFindCarByName(carName,pageable),null,null);
+    }
+
+    @GetMapping("/v1/car/search/dto/{size}/{page}/{sort}")
+    public ResponseEntity<Object> pageSortByNameDTO(@RequestParam String carName,
+                                                    @PathVariable("size") int size,
+                                                    @PathVariable("page") int page,
+                                                    @PathVariable("sort") String sortz)throws Exception {
+
+        /*TANPA DTO*/
 //        Pageable pageable;
 //        if(sortz.equalsIgnoreCase("desc"))
 //        {
@@ -129,24 +116,35 @@ public class CarControlller {
 //        {
 //            pageable = PageRequest.of(page,size, Sort.by("id"));//default asc
 //        }
-//        Page<Employee> m = (Page<Employee>) employeeService.pagingFindEmployeeByName(employeeName,pageable);
-//        List<Employee> ls = m.getContent();
-//        List<EmployeeDTO> lsDto = modelMapper.map(ls, new TypeToken<List<EmployeeDTO>>() {}.getType());
-//
-//        Map<String,Object> mapz = new HashMap<String,Object>();
-//        mapz.put("content",lsDto);
-//        mapz.put("currentPage",m.getNumber());
-//        mapz.put("totalItems",m.getTotalElements());
-//        mapz.put("totalPages",m.getTotalPages());
-//        mapz.put("sort",m.getSort());
-//        mapz.put("numberOfElements",m.getNumberOfElements());
-//
-//
+
+        /*DENGAN DTO*/
+        Pageable pageable;
+        if(sortz.equalsIgnoreCase("desc"))
+        {
+            pageable = PageRequest.of(page,size, Sort.by("id").descending());
+        }
+        else
+        {
+            pageable = PageRequest.of(page,size, Sort.by("id"));//default asc
+        }
+        Page<Cars> m = (Page<Cars>) carService.pagingFindCarByName(carName,pageable);
+        List<Cars> ls = m.getContent();
+        List<CarDTO> lsDto = modelMapper.map(ls, new TypeToken<List<CarDTO>>() {}.getType());
+
+        Map<String,Object> mapz = new HashMap<String,Object>();
+        mapz.put("content",lsDto);
+        mapz.put("currentPage",m.getNumber());
+        mapz.put("totalItems",m.getTotalElements());
+        mapz.put("totalPages",m.getTotalPages());
+        mapz.put("sort",m.getSort());
+        mapz.put("numberOfElements",m.getNumberOfElements());
+
+
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,mapz,null,null);
+
 //        return new ResponseHandler().
-//                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,mapz,null,null);
-//
-////        return new ResponseHandler().
-////                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,employeeService.pagingFindEmployeeByName(employeeName,pageable),null,null);
-//    }
+//                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,employeeService.pagingFindEmployeeByName(employeeName,pageable),null,null);
+    }
 
 }

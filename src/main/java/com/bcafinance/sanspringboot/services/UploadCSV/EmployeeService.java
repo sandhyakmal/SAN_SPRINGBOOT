@@ -9,7 +9,6 @@ Version 1.0
 */
 
 
-import com.bcafinance.sanspringboot.dbo.Employee.EmployeeDTO;
 import com.bcafinance.sanspringboot.models.UploadCSV.Employee;
 import com.bcafinance.sanspringboot.repos.UploadCSV.EmployeeRepo;
 import com.bcafinance.sanspringboot.utils.CsvReader;

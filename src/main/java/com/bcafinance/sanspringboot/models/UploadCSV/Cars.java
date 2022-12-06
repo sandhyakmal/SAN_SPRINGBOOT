@@ -23,7 +23,7 @@ public class Cars implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "CarName" ,length = 20, nullable = false)
+    @Column(name = "CarName" ,length = 50, nullable = false)
     private String carName;
 
     @Column(name = "Brands" ,length = 20, nullable = false)
@@ -32,8 +32,8 @@ public class Cars implements Serializable {
     @Column(name = "CarModel",length = 20,nullable = false)
     private Integer carModel;
 
-    @Column(name = "PostalCode",length = 10, nullable = false)
-    private Integer postalCode;
+    @Column(name = "CarCode",length = 10, nullable = false)
+    private Integer carCode;
 
     @Column(name = "CreatedDates",nullable = false)
     private LocalDate createdDates;
@@ -79,12 +79,12 @@ public class Cars implements Serializable {
         this.carModel = carModel;
     }
 
-    public Integer getPostalCode() {
-        return postalCode;
+    public Integer getCarCode() {
+        return carCode;
     }
 
-    public void setPostalCode(Integer postalCode) {
-        this.postalCode = postalCode;
+    public void setCarCode(Integer carCode) {
+        this.carCode = carCode;
     }
 
     public LocalDate getCreatedDates() {

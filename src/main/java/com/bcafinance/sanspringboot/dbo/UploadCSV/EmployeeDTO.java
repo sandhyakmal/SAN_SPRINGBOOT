@@ -1,4 +1,4 @@
-package com.bcafinance.sanspringboot.dbo.Employee;
+package com.bcafinance.sanspringboot.dbo.UploadCSV;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer
@@ -8,15 +8,6 @@ Last Modified on 12/5/2022 11:26 AM
 Version 1.0
 */
 
-import com.bcafinance.sanspringboot.utils.ConstantMessage;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 public class EmployeeDTO {

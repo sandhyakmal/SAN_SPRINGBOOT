@@ -15,6 +15,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CarRepo extends JpaRepository<Cars, Long> {
 
-    Page<Cars> findByCarNameIsContaining(String carName, Pageable pageable);
+    Page<Cars> findBycarNameIsContaining(String carName, Pageable pageable);
 
 }

@@ -72,16 +72,17 @@ public class CsvReader {
 
             Iterable<CSVRecord> iterRecords = csvParser.getRecords();
 
+            System.out.println();
             for (CSVRecord record : iterRecords) {
                 Cars cars = new Cars();
                 cars.setCarName(record.get("CarName"));
                 cars.setBrands(record.get("Brands"));
-                cars.setCarModel(Integer.valueOf(record.get("CarModel")));
-                cars.setPostalCode(Integer.valueOf(record.get("PostalCode")));
-                cars.setCreatedDates(LocalDate.parse(record.get("BirthDate")));
-                cars.setExpiredDates(LocalDate.parse(record.get("BirthDate")));
-                cars.setPrice(Double.valueOf(record.get("Price")));
-                cars.setTax(Double.valueOf(record.get("Double")));
+                cars.setCarModel(Integer.parseInt(record.get("CarModel")));
+                cars.setCarCode(Integer.parseInt(record.get("CarCode")));
+                cars.setCreatedDates(LocalDate.parse(record.get("CreateDates")));
+                cars.setExpiredDates(LocalDate.parse(record.get("ExpiredDates")));
+                cars.setPrice(Double.parseDouble(record.get("Price")));
+                cars.setTax(Double.parseDouble(record.get("Tax")));
 
                 lsCars.add(cars);
             }
