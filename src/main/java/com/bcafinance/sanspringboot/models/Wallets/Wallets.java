@@ -24,7 +24,7 @@ public class Wallets {
     @Column(name = "WalletId")
     private Long id;
 
-    @NotEmpty(message = ConstantMessage.WARNING_NAME_MENDATORY)
+    @NotEmpty(message = ConstantMessage.WARNING_NOREK_MENDATORY)
     @Column(name = "NomorRekening",nullable = false, unique = true)
     private String nomorRekening;
 
