@@ -14,6 +14,7 @@ import com.bcafinance.sanspringboot.repos.UploadCSV.CarRepo;
 import com.bcafinance.sanspringboot.utils.CsvReader;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,10 +50,34 @@ public class CarService {
     {
         return (List<Cars>)carRepo.findAll();
     }
-
-    public Iterable<Cars> pagingFindCarByName(String carName, Pageable pageable)
+    public Iterable<Cars> pagingfindBycarNameContaining(String carName, Pageable pageable)
     {
-        return carRepo.findBycarNameIsContaining(carName,pageable);
+        return carRepo.findBycarNameContaining(carName,pageable);
+    }
+
+    public Page<Cars> pagingFindPublic(String columnName, String value, String value1, Pageable pageable)
+    {
+        if(columnName.equalsIgnoreCase("carName")) 
+        {
+            return carRepo.findBycarNameContaining(value,pageable);
+        } else if (columnName.equalsIgnoreCase("carModel"))
+        {
+            Integer parsCarModel = Integer.valueOf(value);
+            return carRepo.findBycarModelIsGreaterThan(parsCarModel, pageable);
+        } else if (columnName.equalsIgnoreCase("Brands"))
+        {
+            return carRepo.findByBrandsLike(value, pageable);
+        } else if (columnName.equalsIgnoreCase("carCode"))
+        {
+            Integer parsCarCode = Integer.valueOf(value);
+            return carRepo.findBycarCodeIsLessThan(parsCarCode, pageable);
+        }else if (columnName.equalsIgnoreCase("price"))
+        {
+            Double parsPrice = Double.valueOf(value);
+            Double parsPrice1 = Double.valueOf(value1);
+            return carRepo.findBypriceBetween(parsPrice,parsPrice1, pageable);
+        }
+        return null;
     }
 
 }

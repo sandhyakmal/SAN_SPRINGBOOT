@@ -94,10 +94,8 @@ public class CarControlller {
 
        Pageable pageable = PageRequest.of(page,size);
 
-
-
         return new ResponseHandler().
-                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,carService.pagingFindCarByName(carName,pageable),null,null);
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,carService.pagingfindBycarNameContaining(carName,pageable),null,null);
     }
 
     @GetMapping("/v1/car/search/dto/{size}/{page}/{sort}")
@@ -116,7 +114,6 @@ public class CarControlller {
 //        {
 //            pageable = PageRequest.of(page,size, Sort.by("id"));//default asc
 //        }
-
         /*DENGAN DTO*/
         Pageable pageable;
         if(sortz.equalsIgnoreCase("desc"))
@@ -127,12 +124,46 @@ public class CarControlller {
         {
             pageable = PageRequest.of(page,size, Sort.by("id"));//default asc
         }
-        Page<Cars> m = (Page<Cars>) carService.pagingFindCarByName(carName,pageable);
+        Page<Cars> m = (Page<Cars>) carService.pagingfindBycarNameContaining(carName,pageable);
         List<Cars> ls = m.getContent();
         List<CarDTO> lsDto = modelMapper.map(ls, new TypeToken<List<CarDTO>>() {}.getType());
 
         Map<String,Object> mapz = new HashMap<String,Object>();
         mapz.put("content",lsDto);
+        mapz.put("currentPage",m.getNumber());
+        mapz.put("totalItems",m.getTotalElements());
+        mapz.put("totalPages",m.getTotalPages());
+        mapz.put("sort",m.getSort());
+        mapz.put("numberOfElements",m.getNumberOfElements());
+
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,mapz,null,null);
+
+//        return new ResponseHandler().
+//                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,employeeService.pagingFindEmployeeByName(employeeName,pageable),null,null);
+    }
+
+    @GetMapping("/v1/car/search/public/{size}/{page}/{sort}")
+    public ResponseEntity<Object> pagePublic(@RequestParam String columnName,
+                                             @RequestParam String value,
+                                             @RequestParam String value1,
+                                                    @PathVariable("size") int size,
+                                                    @PathVariable("page") int page,
+                                                    @PathVariable("sort") String sortz)throws Exception {
+        Pageable pageable;
+        if(sortz.equalsIgnoreCase("desc"))
+        {
+            pageable = PageRequest.of(page,size, Sort.by("id").descending());
+        }
+        else
+        {
+            pageable = PageRequest.of(page,size, Sort.by("id"));//default asc
+        }
+        Page<Cars> m = carService.pagingFindPublic(columnName, value, value1, pageable);
+        List<Cars> ls = m.getContent();
+
+        Map<String,Object> mapz = new HashMap<String,Object>();
+        mapz.put("content",ls);
         mapz.put("currentPage",m.getNumber());
         mapz.put("totalItems",m.getTotalElements());
         mapz.put("totalPages",m.getTotalPages());
@@ -146,5 +177,6 @@ public class CarControlller {
 //        return new ResponseHandler().
 //                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,employeeService.pagingFindEmployeeByName(employeeName,pageable),null,null);
     }
+
 
 }

@@ -13,8 +13,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface CarRepo extends JpaRepository<Cars, Long> {
 
-    Page<Cars> findBycarNameIsContaining(String carName, Pageable pageable);
+    Page<Cars> findBycarNameContaining(String carName, Pageable pageable);
+    Page<Cars> findByBrandsLike(String brands, Pageable pageable);
+    Page<Cars> findBycarModelIsGreaterThan(Integer carModel, Pageable pageable);
+    Page<Cars> findBycarCodeIsLessThan(Integer carCode,Pageable pageable);
+    Page<Cars> findBypriceBetween(Double price, Double price1, Pageable pageable);
 
 }
