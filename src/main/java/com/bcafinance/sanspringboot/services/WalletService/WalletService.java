@@ -47,7 +47,6 @@ public class WalletService {
         return walletRepo.findAll();
     }
 
-
     @Transactional(rollbackFor = {Exception.class, SQLException.class})
     public void updateWalletsBynomorRekening(String nomorRekeningSumber,String  nomorRekeningTujuan, double value) throws Exception{
 
@@ -69,5 +68,9 @@ public class WalletService {
             rekeningSumber.setSaldo(rekeningSumber.getSaldo()-value);
             rekeningTujuan.setSaldo(rekeningTujuan.getSaldo()+value);
         }
+    }
+
+    public void saveWalletQuerys(Wallets wallets) {
+        walletRepo.insertWallets(wallets.getNomorRekening(), wallets.getNamaNasabah(), wallets.getSaldo(), "Sandhy", new Date(), true);
     }
 }

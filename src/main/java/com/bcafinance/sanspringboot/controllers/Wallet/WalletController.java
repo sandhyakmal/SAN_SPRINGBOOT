@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -97,6 +98,13 @@ public class WalletController {
         walletService.updateWalletsBynomorRekening(nomorRekeningSumber, nomorRekeningTujuan, value);
         return new ResponseHandler().
                 generateResponse(ConstantMessage.TRANSFER_SUCCESS,HttpStatus.OK,null,null,null);
+    }
+
+    @PostMapping("/v1/wallet/insert")
+    public ResponseEntity<Object> saveWalletsQuery(@RequestBody Wallets wallets)throws Exception{
+        walletService.saveWalletQuerys(wallets);
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_INSERT_QUERY,HttpStatus.OK,null,null,null);
     }
 
 }

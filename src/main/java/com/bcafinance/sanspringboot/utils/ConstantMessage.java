@@ -110,6 +110,7 @@ public class ConstantMessage {
     public final static String WARNING_NOREK_MENDATORY = "NOMOR REKENING WAJIB DIISI";
     public final static String WARNING_SALDO_MENDATORY = "SALDO WAJIB DIISI";
     public final static String TRANSFER_SUCCESS = "TRANSFER BERHASIL";
+    public final static String SUCCESS_INSERT_QUERY = "DATA BERHASIL DITAMBAHKAN";
     public final static String TRANSFER_LESS = "TRANSFER GAGAL, SALDO TIDAK MENCUKUPI";
 
 }
