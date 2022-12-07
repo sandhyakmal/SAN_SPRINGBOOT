@@ -104,5 +104,9 @@ public class ConstantMessage {
     public final static String WARNING_GENDER_MENDATORY = "GENDER NAME WAJIB DIISI";
     public final static String WARNING_BIRTH_DATE_MENDATORY = "BIRTH DATE WAJIB DIISI";
 
+    /*Wallets*/
+
+    public final static String WARNING_NAME_MENDATORY = "NAMA NASABAN WAJIB DIISI";
+    public final static String WARNING_SALDO_MENDATORY = "SALDO WAJIB DIISI";
 
 }
