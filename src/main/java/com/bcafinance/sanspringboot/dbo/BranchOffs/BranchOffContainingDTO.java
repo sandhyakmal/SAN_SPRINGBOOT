@@ -1,4 +1,4 @@
-package com.bcafinance.sanspringboot.dbo.BranchOff;
+package com.bcafinance.sanspringboot.dbo.BranchOffs;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer
@@ -12,14 +12,10 @@ import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BranchOffDTO {
+public class BranchOffContainingDTO {
 
     private Long id;
 

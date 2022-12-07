@@ -47,21 +47,27 @@ public class WalletService {
         return walletRepo.findAll();
     }
 
-//    @Transactional(rollbackFor = {Exception.class, SQLException.class})
-//    public void updateWalletsBynomorRekening(Wallets s) throws Exception{
-//        Wallets rekeningSumber = walletRepo.findBynomorRekeningSumber(s.getNomorRekening()).orElseThrow(()->
-//                new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
-//
-//        Wallets rekeningTujuan = walletRepo.findBynomorRekeningTujuan(s.getNomorRekening()).orElseThrow(()->
-//                new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
-//
-//        rekeningSumber.setModifiedBy("1");
-//        rekeningTujuan.setModifiedBy("1");
-//
-//        rekeningSumber.setModifiedDate(new Date());
-//        rekeningTujuan.setModifiedDate(new Date());
-//
-//        rekeningSumber.setSaldo(s.getSaldo());
-//        rekeningTujuan.setSaldo(s.getSaldo());
-//    }
+
+    @Transactional(rollbackFor = {Exception.class, SQLException.class})
+    public void updateWalletsBynomorRekening(String nomorRekeningSumber,String  nomorRekeningTujuan, double value) throws Exception{
+
+        Wallets rekeningSumber = walletRepo.findBynomorRekening(nomorRekeningSumber).orElseThrow(()->
+                new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
+
+        Wallets rekeningTujuan = walletRepo.findBynomorRekening(nomorRekeningTujuan).orElseThrow(()->
+                new ResourceNotFoundException(ConstantMessage.WARNING_NOT_FOUND));
+
+        rekeningSumber.setModifiedBy("1");
+        rekeningTujuan.setModifiedBy("1");
+
+        rekeningSumber.setModifiedDate(new Date());
+        rekeningTujuan.setModifiedDate(new Date());
+
+        if (rekeningSumber.getSaldo() < value){
+            throw new ResourceNotFoundException(ConstantMessage.TRANSFER_LESS);
+        } else {
+            rekeningSumber.setSaldo(rekeningSumber.getSaldo()-value);
+            rekeningTujuan.setSaldo(rekeningTujuan.getSaldo()+value);
+        }
+    }
 }

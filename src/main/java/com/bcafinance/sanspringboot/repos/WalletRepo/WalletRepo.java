@@ -17,6 +17,6 @@ import java.util.Optional;
 
 public interface WalletRepo extends JpaRepository<Wallets, Long> {
 
-//    Optional<Wallets> findBynomorRekeningSumber(String nomorRekeningSumber);
-//    Optional<Wallets> findBynomorRekeningTujuan(String nomorRekeningTujuan);
+    Optional<Wallets> findBynomorRekening(String nomorRekening);
+    Optional<Wallets> findBysaldo(Double saldo);
 }

@@ -1,4 +1,4 @@
-package com.bcafinance.sanspringboot.dbo.BranchOff;
+package com.bcafinance.sanspringboot.dbo.BranchOffs;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer
@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BranchOffContainingDTO {
+public class BranchOffIdDTO {
 
     private Long id;
 

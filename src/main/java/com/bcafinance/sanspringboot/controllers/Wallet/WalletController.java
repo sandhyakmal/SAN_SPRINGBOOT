@@ -8,6 +8,8 @@ Last Modified on 07/12/2022 11:09
 Version 1.0
 */
 
+import com.bcafinance.sanspringboot.dbo.BranchOffs.BranchOffDTO;
+import com.bcafinance.sanspringboot.dbo.Wallets.WalletDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
 import com.bcafinance.sanspringboot.models.BranchOffs;
@@ -18,12 +20,14 @@ import com.bcafinance.sanspringboot.services.WalletService.WalletService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -44,6 +48,7 @@ public class WalletController {
     @PostMapping("/v1/wallet")
     public ResponseEntity<Object>
     saveWallet( @RequestBody Wallets wallets) throws Exception {
+
         walletService.saveWallet(wallets);
         return new ResponseHandler().generateResponse(ConstantMessage.SUCCESS_SAVE, HttpStatus.CREATED,null,null,null);
     }
@@ -70,12 +75,28 @@ public class WalletController {
         }
     }
 
-//    @PutMapping("/v1/wallet/update")
-//    public ResponseEntity<Object> updateWalletBynomorRekening(@RequestParam String nomorRekeningSumber,
-//                                                              @RequestParam String nomorRekeningTujuan)throws Exception{
-//        walletService.updateWalletsBynomorRekening(nomorRekeningSumber, nomorRekeningTujuan);
-//        return new ResponseHandler().
-//                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,"",null,null);
-//    }
+    @GetMapping("/v1/wallet/dto/datas/all")
+    public ResponseEntity<Object> findAllWalletDTO()throws Exception{
+
+        List<Wallets> lsWallets = walletService.findAllWallets();
+
+        if(lsWallets.size()==0)
+        {
+            throw new ResourceNotFoundException(ConstantMessage.WARNING_DATA_EMPTY);
+        }
+        List<WalletDTO> lsWalletsDTO =  modelMapper.map(lsWallets, new TypeToken<List<WalletDTO>>() {}.getType());
+
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.SUCCESS_FIND_BY,HttpStatus.OK,lsWalletsDTO,null,null);
+    }
+
+    @PutMapping("/v1/wallet/update")
+    public ResponseEntity<Object> updateWalletBynomorRekening(@RequestParam String nomorRekeningSumber,
+                                                              @RequestParam String nomorRekeningTujuan,
+                                                              @RequestParam Double value)throws Exception{
+        walletService.updateWalletsBynomorRekening(nomorRekeningSumber, nomorRekeningTujuan, value);
+        return new ResponseHandler().
+                generateResponse(ConstantMessage.TRANSFER_SUCCESS,HttpStatus.OK,null,null,null);
+    }
 
 }

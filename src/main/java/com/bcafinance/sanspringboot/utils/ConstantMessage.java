@@ -108,5 +108,7 @@ public class ConstantMessage {
 
     public final static String WARNING_NAME_MENDATORY = "NAMA NASABAN WAJIB DIISI";
     public final static String WARNING_SALDO_MENDATORY = "SALDO WAJIB DIISI";
+    public final static String TRANSFER_SUCCESS = "TRANSFER BERHASIL";
+    public final static String TRANSFER_LESS = "TRANSFER GAGAL, SALDO TIDAK MENCUKUPI";
 
 }

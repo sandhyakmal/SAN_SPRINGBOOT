@@ -8,15 +8,12 @@ Last Modified on 12/3/2022 3:56 PM
 Version 1.0
 */
 
-import com.bcafinance.sanspringboot.dbo.BranchOff.BranchOffContainingDTO;
-import com.bcafinance.sanspringboot.dbo.BranchOff.BranchOffDTO;
-import com.bcafinance.sanspringboot.dbo.BranchOff.BranchOffIdDTO;
-import com.bcafinance.sanspringboot.dbo.Provinces.GeoProvinceContainingDTO;
-import com.bcafinance.sanspringboot.dbo.Provinces.GeoProvinceIdDTO;
+import com.bcafinance.sanspringboot.dbo.BranchOffs.BranchOffContainingDTO;
+import com.bcafinance.sanspringboot.dbo.BranchOffs.BranchOffDTO;
+import com.bcafinance.sanspringboot.dbo.BranchOffs.BranchOffIdDTO;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
 import com.bcafinance.sanspringboot.models.BranchOffs;
-import com.bcafinance.sanspringboot.models.Provinces;
 import com.bcafinance.sanspringboot.services.BranchOffService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
