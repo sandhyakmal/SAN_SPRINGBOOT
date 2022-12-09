@@ -113,4 +113,11 @@ public class ConstantMessage {
     public final static String SUCCESS_INSERT_QUERY = "DATA BERHASIL DITAMBAHKAN";
     public final static String TRANSFER_LESS = "TRANSFER GAGAL, SALDO TIDAK MENCUKUPI";
 
+
+
+    /* UJIAN */
+    public final static String ERROR_TIDAK_BOLEH_KOSONG_VAR_1 = "VARIABEL 1 WAJIB DIISI";
+    public final static String ERROR_TIDAK_BOLEH_KOSONG_VAR_2 = "VARIABEL 2 WAJIB DIISI";
+    public final static String ERROR_TIDAK_BOLEH_KOSONG_VAR_3 = "VARIABEL 3 WAJIB DIISI";
+
 }

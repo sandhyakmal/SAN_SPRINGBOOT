@@ -54,7 +54,6 @@ public class BranchOffService {
 
     @Transactional(rollbackFor = {Exception.class})
     public void saveAllBranchOff(List<BranchOffs> ls){
-
         branchOffRepo.saveAll(ls);
     }
 
