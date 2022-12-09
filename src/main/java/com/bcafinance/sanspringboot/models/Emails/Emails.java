@@ -1,4 +1,4 @@
-package com.bcafinance.sanspringboot.models;
+package com.bcafinance.sanspringboot.models.Emails;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer

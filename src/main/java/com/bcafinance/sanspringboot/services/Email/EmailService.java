@@ -1,4 +1,4 @@
-package com.bcafinance.sanspringboot.services;
+package com.bcafinance.sanspringboot.services.Email;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer
@@ -11,9 +11,8 @@ Version 1.0
 
 import com.bcafinance.sanspringboot.handler.FormatValidation;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
-import com.bcafinance.sanspringboot.models.Emails;
-import com.bcafinance.sanspringboot.models.Geographys;
-import com.bcafinance.sanspringboot.repos.EmailRepo;
+import com.bcafinance.sanspringboot.models.Emails.Emails;
+import com.bcafinance.sanspringboot.repos.Email.EmailRepo;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;

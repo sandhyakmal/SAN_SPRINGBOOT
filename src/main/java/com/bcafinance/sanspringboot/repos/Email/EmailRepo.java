@@ -1,4 +1,4 @@
-package com.bcafinance.sanspringboot.repos;
+package com.bcafinance.sanspringboot.repos.Email;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer
@@ -8,7 +8,7 @@ Last Modified on 12/4/2022 5:01 PM
 Version 1.0
 */
 
-import com.bcafinance.sanspringboot.models.Emails;
+import com.bcafinance.sanspringboot.models.Emails.Emails;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

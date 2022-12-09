@@ -1,4 +1,4 @@
-package com.bcafinance.sanspringboot.controllers;
+package com.bcafinance.sanspringboot.controllers.Email;
 /*
 @Author Andara a.k.a. Sandhy
 Junior Programmer
@@ -12,19 +12,15 @@ import com.bcafinance.sanspringboot.configuration.ConfigProperties;
 import com.bcafinance.sanspringboot.core.SMTPCore;
 import com.bcafinance.sanspringboot.handler.ResourceNotFoundException;
 import com.bcafinance.sanspringboot.handler.ResponseHandler;
-import com.bcafinance.sanspringboot.models.Emails;
-import com.bcafinance.sanspringboot.services.EmailService;
+import com.bcafinance.sanspringboot.models.Emails.Emails;
+import com.bcafinance.sanspringboot.services.Email.EmailService;
 import com.bcafinance.sanspringboot.utils.ConstantMessage;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 
 @RestController
